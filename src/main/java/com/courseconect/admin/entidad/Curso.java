@@ -1,7 +1,7 @@
 package com.courseconect.admin.entidad;
 
-import lombok.Data;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -15,6 +15,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Data
 @Entity

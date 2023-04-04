@@ -1,16 +1,18 @@
 package com.courseconect.admin.entidad;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import lombok.Data;
-import java.util.*;
 
 @Data
 public class Role {
 
 	private Long roleId;
 	private String nombre;
-	
+
 	private Set<Usuario> usuario = new HashSet<>();
-	
+
 	public Role() {
 	}
 

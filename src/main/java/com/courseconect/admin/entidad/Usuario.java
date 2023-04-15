@@ -35,7 +35,7 @@ public class Usuario {
 	@Column(name = "contraseña", nullable = false, length = 45)
 	private String contraseña;
 
-	@ManyToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "usuario_role", joinColumns = { @JoinColumn(name = "usuario_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "role_id") })
 	private Set<Role> roles = new HashSet<>();
@@ -43,7 +43,7 @@ public class Usuario {
 	@OneToOne(mappedBy = "usuario")
 	private Estudiante estudiante;
 
-	@OneToOne(mappedBy = "instructor")
+	@OneToOne(mappedBy = "usuario")
 	private Instructor instructor;
 
 	public Usuario() {

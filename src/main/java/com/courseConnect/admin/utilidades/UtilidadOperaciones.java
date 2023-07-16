@@ -32,12 +32,13 @@ public class UtilidadOperaciones {
 		fetchInstructor(instructorDao);
 	}
 
-	// CONTINUAR CREANDO LAS OPERACIONES ESTUDIANTES Y CURSOS....
+	//CONTINUAR CREANDO LAS OPERACIONES ESTUDIANTES Y CURSOS....
 
 	private static void fetchInstructor(InstructorDao instructorDao) {
 		instructorDao.findAll().forEach(instructor -> System.out.print(instructor.toString()));
 	}
 
+	
 	private static void removerInstructor(InstructorDao instructorDao) {
 		instructorDao.deleteById(2L);
 	}

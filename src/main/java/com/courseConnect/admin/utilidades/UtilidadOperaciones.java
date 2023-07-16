@@ -38,6 +38,7 @@ public class UtilidadOperaciones {
 		instructorDao.findAll().forEach(instructor -> System.out.print(instructor.toString()));
 	}
 
+	
 	private static void removerInstructor(InstructorDao instructorDao) {
 		instructorDao.deleteById(2L);
 	}

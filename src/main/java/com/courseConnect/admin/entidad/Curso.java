@@ -51,11 +51,12 @@ public class Curso {
 	public Curso() {
 	}
 
-	public Curso(String cursoNombre, String cursoDuracion, String cursoDescripcion) {
+	public Curso(String cursoNombre, String cursoDuracion, String cursoDescripcion, Instructor instructor) {
 		super();
 		this.cursoNombre = cursoNombre;
 		this.cursoDuracion = cursoDuracion;
 		this.cursoDescripcion = cursoDescripcion;
+		this.instructor = instructor;
 	}
 
 	@Override

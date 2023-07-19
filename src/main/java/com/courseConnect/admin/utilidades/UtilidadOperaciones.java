@@ -1,8 +1,14 @@
 package com.courseConnect.admin.utilidades;
 
+import java.util.Optional;
+
+import com.courseConnect.admin.dao.CursoDao;
+import com.courseConnect.admin.dao.EstudianteDao;
 import com.courseConnect.admin.dao.InstructorDao;
 import com.courseConnect.admin.dao.RoleDao;
 import com.courseConnect.admin.dao.UsuarioDao;
+import com.courseConnect.admin.entidad.Curso;
+import com.courseConnect.admin.entidad.Estudiante;
 import com.courseConnect.admin.entidad.Instructor;
 import com.courseConnect.admin.entidad.Role;
 import com.courseConnect.admin.entidad.Usuario;
@@ -32,13 +38,103 @@ public class UtilidadOperaciones {
 		fetchInstructor(instructorDao);
 	}
 
-	//CONTINUAR CREANDO LAS OPERACIONES ESTUDIANTES Y CURSOS...
+	public void estudiantesOperaciones(UsuarioDao usuarioDao, EstudianteDao estudianteDao, RoleDao roleDao) {
+		crearEstudiantes(usuarioDao, estudianteDao, roleDao);
+		actualizarEstudiante(estudianteDao);
+		removerEstudiante(estudianteDao);
+		fetchEstudiantes(estudianteDao);
+	}
+
+	public void operacionesDelCurso(CursoDao cursoDao, InstructorDao instructorDao, EstudianteDao estudianteDao) {
+		crearCursos(cursoDao, instructorDao);
+		actualizarCursos(cursoDao);
+		eliminarCursos(cursoDao);
+		fetchCursos(cursoDao);
+		assignarEstudiantesAlCurso(cursoDao, estudianteDao);
+		fetchCursosPorEstudiante(cursoDao);
+	}
+
+	private void fetchCursosPorEstudiante(CursoDao cursoDao) {
+		cursoDao.getCursosPorEstudianteId(1L).forEach(curso -> System.out.print(curso.toString()));
+	}
+
+	private void assignarEstudiantesAlCurso(CursoDao cursoDao, EstudianteDao estudianteDao) {
+		Optional<Estudiante> estudiante1 = estudianteDao.findById(1L);
+		Optional<Estudiante> estudiante2 = estudianteDao.findById(2L);
+
+		Curso curso = cursoDao.findById(1L).orElseThrow(() -> new EntityNotFoundException("Curso No Encontrado"));
+
+		estudiante1.ifPresent(curso::asignarEstudianteAlCurso);
+		estudiante2.ifPresent(curso::asignarEstudianteAlCurso);
+
+		cursoDao.save(curso);
+	}
+
+	private void fetchCursos(CursoDao cursoDao) {
+		cursoDao.findAll().forEach(curso -> System.out.print(curso.toString()));
+	}
+
+	private void eliminarCursos(CursoDao cursoDao) {
+		cursoDao.deleteById(2L);
+	}
+
+	private void actualizarCursos(CursoDao cursoDao) {
+		Curso curso = cursoDao.findById(1L).orElseThrow(() -> new EntityNotFoundException("Curso No Encontrado"));
+		curso.setCursoDuracion("20 Hours");
+		cursoDao.save(curso);
+	}
+
+	private void crearCursos(CursoDao cursoDao, InstructorDao instructorDao) {
+		Instructor instructor = instructorDao.findById(1L)
+				.orElseThrow(() -> new EntityNotFoundException("Instructor No Encontrado"));
+
+		Curso curso = new Curso("Javascript", "5", "Introduccion a Javascript", instructor);
+		cursoDao.save(curso);
+
+		Curso curso2 = new Curso("Angula", "3", "Introduccion a Angular", instructor);
+		cursoDao.save(curso2);
+	}
+
+	private void fetchEstudiantes(EstudianteDao estudianteDao) {
+		estudianteDao.findAll().forEach(estudiante -> System.out.print(estudiante.toString()));
+	}
+
+	private void removerEstudiante(EstudianteDao estudianteDao) {
+		estudianteDao.deleteById(1L);
+	}
+
+	private void actualizarEstudiante(EstudianteDao estudianteDao) {
+		Estudiante estudiante = estudianteDao.findById(2L)
+				.orElseThrow(() -> new EntityNotFoundException("Estudiante No Encontrado"));
+		estudiante.setNombres("NombreActualizado");
+		estudiante.setApellidos("ApellidoActualizado");
+		estudianteDao.save(estudiante);
+	}
+
+	private void crearEstudiantes(UsuarioDao usuarioDao, EstudianteDao estudianteDao, RoleDao roleDao) {
+		Role role = roleDao.findByNombre("Student");
+		if (role == null)
+			throw new EntityNotFoundException("Role No Encontrado");
+
+		Usuario usuario1 = new Usuario("estudianteUsuario1@gmail.com", "pass1");
+		usuarioDao.save(usuario1);
+		usuario1.asignarRoleAUsuario(role);
+
+		Estudiante estudiante1 = new Estudiante("estudiante1FN", "estudiante1LN", "master", usuario1);
+		estudianteDao.save(estudiante1);
+
+		Usuario usuario2 = new Usuario("estudianteUsuario2@gmail.com", "pass2");
+		usuarioDao.save(usuario2);
+		usuario2.asignarRoleAUsuario(role);
+
+		Estudiante estudiante2 = new Estudiante("estudiante2FN", "estudiante2LN", "master", usuario2);
+		estudianteDao.save(estudiante2);
+	}
 
 	private static void fetchInstructor(InstructorDao instructorDao) {
 		instructorDao.findAll().forEach(instructor -> System.out.print(instructor.toString()));
 	}
 
-	
 	private static void removerInstructor(InstructorDao instructorDao) {
 		instructorDao.deleteById(2L);
 	}
@@ -120,5 +216,4 @@ public class UtilidadOperaciones {
 		Usuario usuario4 = new Usuario("usuario4@gmail.com", "pass4");
 		usuarioDao.save(usuario4);
 	}
-
 }

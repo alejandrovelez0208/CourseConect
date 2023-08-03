@@ -14,5 +14,5 @@ public interface EstudianteDao extends JpaRepository<Estudiante, Long> {
 	List<Estudiante> buscarEstudiantesPorNombre(@Param("name") String name);
 
 	@Query(value = "select e from Estudiante as e where e.usuario.email =:email", nativeQuery = true)
-	List<Estudiante> buscarEstudiantePorEmail(@Param("email") String email);
+	Estudiante buscarEstudiantePorEmail(@Param("email") String email);
 }

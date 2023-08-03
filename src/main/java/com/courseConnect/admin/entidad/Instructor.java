@@ -49,7 +49,7 @@ public class Instructor {
 	public Instructor() {
 	}
 
-	public Instructor(String nombres, String apellidos, String summary, Usuario usuario, String password) {
+	public Instructor(String nombres, String apellidos, String summary, Usuario usuario) {
 		super();
 		this.nombres = nombres;
 		this.apellidos = apellidos;

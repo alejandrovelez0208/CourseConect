@@ -51,7 +51,7 @@ public class CursoServicioImpl implements CursoServicio {
 
 	@Override
 	public List<Curso> EncontrarCursosPorNombre(String keyword) {
-		return cursoDao.findByCursoNombre(keyword);
+		return cursoDao.encontrarCursoPorNombre(keyword);
 	}
 
 	@Override

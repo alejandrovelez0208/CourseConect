@@ -3,7 +3,6 @@ package com.courseConnect.admin.servicio;
 import java.util.List;
 
 import com.courseConnect.admin.entidad.Instructor;
-import com.courseConnect.admin.entidad.Usuario;
 
 public interface InstructorServicio {
 
@@ -13,7 +12,7 @@ public interface InstructorServicio {
 
 	Instructor cargarInstructorPorEmail(String Email);
 
-	Instructor crearInstructor(String nombre, String apellidos, String summary, Usuario email, String password);
+	Instructor crearInstructor(String nombre, String apellidos, String summary, String email, String password);
 
 	Instructor actualizarInstructor(Instructor instructor);
 

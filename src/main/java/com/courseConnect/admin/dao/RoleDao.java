@@ -6,5 +6,5 @@ import com.courseConnect.admin.entidad.Role;
 
 public interface RoleDao extends JpaRepository<Role, Long> {
 
-	Role findByNombre(String nombre);
+	Role buscarRolePorNombre(String nombre);
 }

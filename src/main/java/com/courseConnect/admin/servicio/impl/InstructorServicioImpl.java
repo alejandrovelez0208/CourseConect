@@ -8,6 +8,7 @@ import com.courseConnect.admin.entidad.Instructor;
 import com.courseConnect.admin.entidad.Usuario;
 import com.courseConnect.admin.servicio.CursoServicio;
 import com.courseConnect.admin.servicio.InstructorServicio;
+import com.courseConnect.admin.servicio.UsuarioServicio;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -17,8 +18,13 @@ public class InstructorServicioImpl implements InstructorServicio {
 
 	private CursoServicio cursoServicio;
 
-	public InstructorServicioImpl(InstructorDao instructorDao) {
+	private UsuarioServicio usuarioServicio;
+
+	public InstructorServicioImpl(InstructorDao instructorDao, CursoServicio cursoServicio,
+			UsuarioServicio usuarioServicio) {
 		this.instructorDao = instructorDao;
+		this.cursoServicio = cursoServicio;
+		this.usuarioServicio = usuarioServicio;
 	}
 
 	@Override
@@ -38,8 +44,10 @@ public class InstructorServicioImpl implements InstructorServicio {
 	}
 
 	@Override
-	public Instructor crearInstructor(String nombre, String apellidos, String summary, Usuario email, String password) {
-		return instructorDao.save(new Instructor(nombre, apellidos, summary, email, password));
+	public Instructor crearInstructor(String nombre, String apellidos, String summary, String email, String password) {
+		Usuario usuario = usuarioServicio.crearUsuarios(summary, password);
+		usuarioServicio.asignarRoleToUsuario(email, "Instructor");
+		return instructorDao.save(new Instructor(nombre, apellidos, summary, usuario));
 	}
 
 	@Override

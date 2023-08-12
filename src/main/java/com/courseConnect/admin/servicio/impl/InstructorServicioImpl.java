@@ -34,7 +34,7 @@ public class InstructorServicioImpl implements InstructorServicio {
 	}
 
 	@Override
-	public List<Instructor> buscarInstructorePorNombre(String name) {
+	public List<Instructor> buscarInstructorPorNombre(String name) {
 		return instructorDao.buscarInstructoresPorNombre(name);
 	}
 

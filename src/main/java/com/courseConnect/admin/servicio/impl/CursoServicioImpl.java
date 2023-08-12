@@ -25,10 +25,9 @@ public class CursoServicioImpl implements CursoServicio {
 	@Autowired
 	private EstudianteDao estudianteDao;
 
-	public CursoServicioImpl(CursoDao cursoDao, InstructorDao instructorDao, EstudianteDao estudianteDao) {
+	public CursoServicioImpl(CursoDao cursoDao, InstructorDao instructorDao) {
 		this.cursoDao = cursoDao;
 		this.instructorDao = instructorDao;
-		this.estudianteDao = estudianteDao;
 	}
 
 	@Override

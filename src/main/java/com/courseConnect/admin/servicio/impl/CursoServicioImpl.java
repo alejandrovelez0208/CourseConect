@@ -3,6 +3,7 @@ package com.courseConnect.admin.servicio.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.courseConnect.admin.dao.CursoDao;
 import com.courseConnect.admin.dao.EstudianteDao;
@@ -13,7 +14,10 @@ import com.courseConnect.admin.entidad.Instructor;
 import com.courseConnect.admin.servicio.CursoServicio;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
+@Service
+@Transactional
 public class CursoServicioImpl implements CursoServicio {
 
 	@Autowired
@@ -50,7 +54,7 @@ public class CursoServicioImpl implements CursoServicio {
 
 	@Override
 	public List<Curso> EncontrarCursosPorNombre(String keyword) {
-		return cursoDao.encontrarCursoPorNombre(keyword);
+		return cursoDao.findCursosByCursoNombreContains(keyword);
 	}
 
 	@Override
@@ -69,7 +73,7 @@ public class CursoServicioImpl implements CursoServicio {
 
 	@Override
 	public List<Curso> fetchCursosPorEstudiante(Long estudianteId) {
-		return cursoDao.getCursosPorEstudianteId(estudianteId);
+		return cursoDao.getCursosByEstudianteId(estudianteId);
 	}
 
 	@Override

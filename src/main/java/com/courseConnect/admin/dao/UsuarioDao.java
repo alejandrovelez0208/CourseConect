@@ -6,5 +6,5 @@ import com.courseConnect.admin.entidad.Usuario;
 
 public interface UsuarioDao extends JpaRepository<Usuario, Long> {
 
-	Usuario buscarUsuarioPorEmail(String email);
+	Usuario findByEmail(String email);
 }

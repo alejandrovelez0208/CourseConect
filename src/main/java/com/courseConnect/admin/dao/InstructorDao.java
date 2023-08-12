@@ -11,8 +11,8 @@ import com.courseConnect.admin.entidad.Instructor;
 public interface InstructorDao extends JpaRepository<Instructor, Long> {
 
 	@Query(value = "select i from Instructor as i where i.nombres like %:name% or i.apellidos like %:name%", nativeQuery = true)
-	List<Instructor> buscarInstructoresPorNombre(@Param("name") String name);
+	List<Instructor> findInstructoresByNombre(@Param("name") String name);
 
 	@Query(value = "select i from Instructor as i where i.usuario.email =:email", nativeQuery = true)
-	Instructor buscarInstructorPorEmail(@Param("email") String email);
+	Instructor findInstructorByEmail(@Param("email") String email);
 }

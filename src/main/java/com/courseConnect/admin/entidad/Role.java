@@ -13,10 +13,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
 @Table(name = "roles")
+@EqualsAndHashCode(callSuper = false)
 public class Role {
 
 	@Id

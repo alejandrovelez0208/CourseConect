@@ -2,6 +2,8 @@ package com.courseConnect.admin.servicio.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.courseConnect.admin.dao.InstructorDao;
 import com.courseConnect.admin.entidad.Curso;
 import com.courseConnect.admin.entidad.Instructor;
@@ -11,7 +13,10 @@ import com.courseConnect.admin.servicio.InstructorServicio;
 import com.courseConnect.admin.servicio.UsuarioServicio;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
+@Service
+@Transactional
 public class InstructorServicioImpl implements InstructorServicio {
 
 	private InstructorDao instructorDao;
@@ -35,17 +40,17 @@ public class InstructorServicioImpl implements InstructorServicio {
 
 	@Override
 	public List<Instructor> buscarInstructorPorNombre(String name) {
-		return instructorDao.buscarInstructoresPorNombre(name);
+		return instructorDao.findInstructoresByNombre(name);
 	}
 
 	@Override
 	public Instructor cargarInstructorPorEmail(String Email) {
-		return instructorDao.buscarInstructorPorEmail(Email);
+		return instructorDao.findInstructorByEmail(Email);
 	}
 
 	@Override
 	public Instructor crearInstructor(String nombre, String apellidos, String summary, String email, String password) {
-		Usuario usuario = usuarioServicio.crearUsuarios(summary, password);
+		Usuario usuario = usuarioServicio.crearUsuarios(email, password);
 		usuarioServicio.asignarRoleToUsuario(email, "Instructor");
 		return instructorDao.save(new Instructor(nombre, apellidos, summary, usuario));
 	}

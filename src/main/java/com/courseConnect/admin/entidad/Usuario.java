@@ -1,6 +1,7 @@
 package com.courseConnect.admin.entidad;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Basic;
@@ -45,7 +46,7 @@ public class Usuario {
 
 	@OneToOne(mappedBy = "usuario")
 	private Instructor instructor;
-
+	
 	public Usuario() {
 	}
 
@@ -68,5 +69,23 @@ public class Usuario {
 	public void retirarRoleDeUsuario(Role role) {
 		this.roles.remove(role);
 		role.getUsuario().add(this);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(contraseña, other.contraseña) && Objects.equals(email, other.email)
+				&& Objects.equals(usuarioId, other.usuarioId);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(contraseña, email, usuarioId);
 	}
 }

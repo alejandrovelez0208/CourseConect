@@ -11,8 +11,8 @@ import com.courseConnect.admin.entidad.Estudiante;
 public interface EstudianteDao extends JpaRepository<Estudiante, Long> {
 
 	@Query(value = "select e from Estudiante as e where e.nombres like %:name% or e.apellidos like %:name%", nativeQuery = true)
-	List<Estudiante> buscarEstudiantesPorNombre(@Param("name") String name);
+	List<Estudiante> findEstudiantesByNombre(@Param("name") String name);
 
 	@Query(value = "select e from Estudiante as e where e.usuario.email =:email", nativeQuery = true)
-	Estudiante buscarEstudiantePorEmail(@Param("email") String email);
+	Estudiante findEstudianteByEmail(@Param("email") String email);
 }

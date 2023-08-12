@@ -1,11 +1,17 @@
 package com.courseConnect.admin.servicio.impl;
 
+import org.springframework.stereotype.Service;
+
 import com.courseConnect.admin.dao.RoleDao;
 import com.courseConnect.admin.dao.UsuarioDao;
 import com.courseConnect.admin.entidad.Role;
 import com.courseConnect.admin.entidad.Usuario;
 import com.courseConnect.admin.servicio.UsuarioServicio;
 
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
 public class UsuarioServicioImpl implements UsuarioServicio {
 
 	private UsuarioDao usuarioDao;
@@ -19,7 +25,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 	@Override
 	public Usuario cargarUsuarioPorEmail(String email) {
-		return usuarioDao.buscarUsuarioPorEmail(email);
+		return usuarioDao.findByEmail(email);
 	}
 
 	@Override
@@ -29,8 +35,8 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 	@Override
 	public void asignarRoleToUsuario(String email, String nombreRole) {
-		Usuario usuario = usuarioDao.buscarUsuarioPorEmail(email);
-		Role role = roleDao.buscarRolePorNombre(nombreRole);
+		Usuario usuario = usuarioDao.findByEmail(email);
+		Role role = roleDao.findByNombre(nombreRole);
 		usuario.asignarRoleAUsuario(role);
 	}
 }

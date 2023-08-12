@@ -3,6 +3,8 @@ package com.courseConnect.admin.servicio.impl;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.courseConnect.admin.dao.EstudianteDao;
 import com.courseConnect.admin.entidad.Curso;
 import com.courseConnect.admin.entidad.Estudiante;
@@ -11,14 +13,17 @@ import com.courseConnect.admin.servicio.EstudianteServicio;
 import com.courseConnect.admin.servicio.UsuarioServicio;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
+@Service
+@Transactional
 public class EstudianteServicioImpl implements EstudianteServicio {
 
 	private EstudianteDao estudianteDao;
 
 	private UsuarioServicio usuarioServicio;
 
-	public EstudianteServicioImpl(EstudianteDao estudianteDao,UsuarioServicio usuarioServicio) {
+	public EstudianteServicioImpl(EstudianteDao estudianteDao, UsuarioServicio usuarioServicio) {
 		this.estudianteDao = estudianteDao;
 		this.usuarioServicio = usuarioServicio;
 	}
@@ -31,20 +36,19 @@ public class EstudianteServicioImpl implements EstudianteServicio {
 
 	@Override
 	public List<Estudiante> cargarEstudiantePorNombre(String nombre) {
-		return estudianteDao.buscarEstudiantesPorNombre(nombre);
+		return estudianteDao.findEstudiantesByNombre(nombre);
 	}
 
 	@Override
 	public Estudiante cargarEstudiantePorEmail(String email) {
-		return estudianteDao.buscarEstudiantePorEmail(email);
+		return estudianteDao.findEstudianteByEmail(email);
 	}
 
 	@Override
 	public Estudiante crearEstudiante(String nombres, String apellidos, String nivel, String email, String password) {
 		Usuario usuario = usuarioServicio.crearUsuarios(email, password);
 		usuarioServicio.asignarRoleToUsuario(email, "Estudiante");
-		estudianteDao.save(new Estudiante(nombres, apellidos, nivel, usuario));
-		return null;
+		return estudianteDao.save(new Estudiante(nombres, apellidos, nivel, usuario));
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.courseConnect.admin.entidad;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Basic;
@@ -62,4 +63,23 @@ public class Estudiante {
 				+ ", nivel=" + nivel + "]";
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Estudiante other = (Estudiante) obj;
+		return Objects.equals(apellidos, other.apellidos) && Objects.equals(estudianteId, other.estudianteId)
+				&& Objects.equals(nivel, other.nivel) && Objects.equals(nombres, other.nombres);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(apellidos, estudianteId, nivel, nombres);
+	}
+
+	
 }

@@ -29,9 +29,10 @@ public class CursoServicioImpl implements CursoServicio {
 	@Autowired
 	private EstudianteDao estudianteDao;
 
-	public CursoServicioImpl(CursoDao cursoDao, InstructorDao instructorDao) {
+	public CursoServicioImpl(CursoDao cursoDao, InstructorDao instructorDao, EstudianteDao estudianteDao) {
 		this.cursoDao = cursoDao;
 		this.instructorDao = instructorDao;
+		this.estudianteDao = estudianteDao;
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class CursoServicioImpl implements CursoServicio {
 	}
 
 	@Override
-	public List<Curso> EncontrarCursosPorNombre(String keyword) {
+	public List<Curso> encontrarCursosPorNombre(String keyword) {
 		return cursoDao.findCursosByCursoNombreContains(keyword);
 	}
 

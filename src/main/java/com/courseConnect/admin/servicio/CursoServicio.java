@@ -12,7 +12,7 @@ public interface CursoServicio {
 
 	Curso crearOrActualizarCurso(Curso curso);
 
-	List<Curso> EncontrarCursosPorNombre(String keyword);
+	List<Curso> encontrarCursosPorNombre(String keyword);
 
 	void asignarEstudianteToCurso(Long cursoId, Long estudianteId);
 

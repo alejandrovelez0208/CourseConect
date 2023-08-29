@@ -36,7 +36,7 @@ public class Curso {
 	private String cursoDuracion;
 
 	@Basic
-	@Column(name = "curso_descripcion", nullable = false, length = 45)
+	@Column(name = "curso_descripcion", nullable = false, length = 200)
 	private String cursoDescripcion;
 
 	@ManyToOne(fetch = FetchType.LAZY)

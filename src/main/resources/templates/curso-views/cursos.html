@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    
+    <div class="container">
+        <div class="card">
+            <div class="card-header">Lista de Cursos</div>
+            <div class="card-body">
+                <form method="get" th:action="@{index}">
+                    <label>Keyword</label>
+                    <input type="text" name="Keyword" th:value="${Keyword}">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Curso Id</th>
+                            <th>Curso Nombre</th>
+                            <th>Curso Duracion</th>
+                            <th>Curso Description</th>
+                            <th>Instructor</th>
+                            <th>Number Of Participants</th>
+                        </tr>
+                    </thead>
+                    <tr class="text-center" th:each="curso:${listCursos}">
+                        <td th:text="${curso.getCursoId()}"></td>
+                        <td th:text="${curso.getCursoNombre()}"></td>
+                        <td th:text="${curso.getCursoDuracion()}"></td>
+                        <td th:text="${curso.getCursoDescripcion()}"></td>
+                        <td th:text="${curso.getInstructor().getNombres()}+ '  '+${curso.getInstructor().getApellidos()}"></td>
+                        <td th:text="${curso.getEstudiante().size()}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

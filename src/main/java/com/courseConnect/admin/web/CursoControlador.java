@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,18 +37,24 @@ public class CursoControlador {
 		return "curso-views/cursos";
 	}
 
-	@GetMapping("/delete")
+	@GetMapping(value = "/delete")
 	public String deleteCursos(Long cursoId, String keyword) {
 		cursoServicio.removerCurso(cursoId);
 		return "redirect:/cursos/index?keyword=" + keyword;
 	}
 
-	@GetMapping("/fromUpd")
-	public String updateCurso(Model model, Long courseId) {
-		Curso curso = cursoServicio.cargarCursoPorId(courseId);
+	@GetMapping(value = "/formUpdate")
+	public String updateCourse(Model model, Long cursoId) {
+		Curso curso = cursoServicio.cargarCursoPorId(cursoId);
 		List<Instructor> instructors = instructorServicio.fetchInstructor();
 		model.addAttribute("curso", curso);
 		model.addAttribute("listInstructors", instructors);
-		return "course-views/formUpdate";
+		return "curso-views/formUpdate";
+	}
+	
+	@PostMapping(value = "/save")
+	public String save(Curso curso) {
+		cursoServicio.crearOrActualizarCurso(curso);
+		return "redirect:/cursos/index";
 	}
 }

@@ -1,0 +1,27 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+.productos {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.productos-list-item {
+	display: block;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	padding: 20px;
+	height: 365px;
+	margin-top: 10px;
+}
+
+h6 {
+	font-size: 15px;
+}
+
+.botones {
+	display: flex;
+	justify-content: space-around;
+}

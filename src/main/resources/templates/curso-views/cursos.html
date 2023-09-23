@@ -5,50 +5,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Curso</title>
-<link rel="stylesheet" href="/src/main/resources/static/css/style.css">
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 <link rel="stylesheet" type="text/css"
 	href="/webjars/bootstrap/5.3.1/css/bootstrap.min.css">
 </head>
-
 <body>
-
-	<style>
-* {
-	padding: 0;
-	margin: 0;
-}
-
-.productos {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-}
-
-.productos-list-item {
-	display: block;
-	border: 1px solid rgba(0, 0, 0, 0.2);
-	padding: 20px;
-	height: 365px;
-	margin-top: 10px;
-}
-
-h6 {
-	font-size: 15px;
-}
-
-.botones {
-	display: flex;
-	justify-content: space-around;
-}
-</style>
-
 	<div class="container">
 		<div class="card">
 			<div class="card-header">Lista de Cursos</div>
 			<div class="card-body">
 				<form method="get" th:action="@{index}">
-					<label>Keyword</label> <input type="text" name="Keyword"
-						th:value="${Keyword}">
+					<label>Keyword</label> <input type="text" name="keyword"
+						th:value="${keyword}">
 					<button type="submit" class="btn btn-primary">Search</button>
 				</form>
 				<div class="productos">

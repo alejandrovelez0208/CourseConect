@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.courseConnect.admin.entidad.Contenido;
 import com.courseConnect.admin.entidad.Curso;
 import com.courseConnect.admin.entidad.Estudiante;
 import com.courseConnect.admin.entidad.Instructor;
 import com.courseConnect.admin.entidad.Usuario;
+import com.courseConnect.admin.servicio.ContenidoServicio;
 import com.courseConnect.admin.servicio.CursoServicio;
 import com.courseConnect.admin.servicio.EstudianteServicio;
 import com.courseConnect.admin.servicio.InstructorServicio;
@@ -32,12 +34,17 @@ public class MyRunner implements CommandLineRunner {
 	@Autowired
 	private CursoServicio cursoServicio;
 
+	@Autowired
+	private ContenidoServicio contenidoServicio;
+
 	private static final String ESTUDIANTE = "Estudiante";
 	private static final String ADMIN = "Admin";
 	private static final String INSTRUCTOR = "Instructor";
 
 	@Override
 	public void run(String... args) throws Exception {
+		byte[] byteArray = { 1, 2, 3, 4, 5 };
+
 		Usuario usuario1 = usuarioServicio.crearUsuarios("usuario1@gmail.com", "pass1");
 		Usuario usuario2 = usuarioServicio.crearUsuarios("usuario2@gmail.com", "pass2");
 
@@ -83,10 +90,14 @@ public class MyRunner implements CommandLineRunner {
 		Curso curso6 = cursoServicio.crearCurso("Bootstrap", "1 Hora",
 				"Bootstrap es una biblioteca multiplataforma o conjunto de herramientas de código abierto para diseño de sitios y aplicaciones web",
 				instructor2.getInstructorId());
-		
+
 		Curso curso7 = cursoServicio.crearCurso("Python", "3 Horas",
 				"Python es un lenguaje de alto nivel de programación interpretado cuya filosofía hace hincapié en la legibilidad de su código",
 				instructor2.getInstructorId());
+
+		Contenido archivos1 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
+				"task1", byteArray, "task2", byteArray, "tutorial", byteArray, "imagen", byteArray,
+				curso1.getCursoId());
 
 		cursoServicio.asignarEstudianteToCurso(curso1.getCursoId(), estudiante1.getEstudianteId());
 		cursoServicio.asignarEstudianteToCurso(curso2.getCursoId(), estudiante2.getEstudianteId());

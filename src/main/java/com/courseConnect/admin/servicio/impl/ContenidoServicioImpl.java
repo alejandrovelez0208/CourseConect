@@ -33,4 +33,16 @@ public class ContenidoServicioImpl implements ContenidoServicio {
 				archivo2Doc, nombre2Doc, archivo2Doc, tutorialVideo, archivoVideo, imagenNombre, imagenGuia, curso));
 	}
 
+	@Override
+	public Contenido cargarContenidoById(Long CursoId) {
+		Contenido contenido = contenidoDao.findById(CursoId)
+				.orElseThrow(() -> new EntityNotFoundException("Contenido con Id" + CursoId + "No Encontrado"));
+		return contenido;
+	}
+
+	@Override
+	public Contenido crearOrActualizarContenido(Contenido contenido) {
+		return contenidoDao.save(contenido);
+	}
+
 }

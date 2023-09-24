@@ -83,29 +83,41 @@ public class MyRunner implements CommandLineRunner {
 				"React es un framework para aplicaciones web desarrollado en TypeScript, de código abierto, mantenido por Google",
 				instructor2.getInstructorId());
 
-		Curso curso5 = cursoServicio.crearCurso("Javascript", "11 Horas",
-				"JavaScript es un lenguaje de programación interpretado. Se define como orientado a objetos, ​basado en prototipos.",
-				instructor1.getInstructorId());
-
-		Curso curso6 = cursoServicio.crearCurso("Bootstrap", "1 Hora",
-				"Bootstrap es una biblioteca multiplataforma o conjunto de herramientas de código abierto para diseño de sitios y aplicaciones web",
-				instructor2.getInstructorId());
-
-		Curso curso7 = cursoServicio.crearCurso("Python", "3 Horas",
-				"Python es un lenguaje de alto nivel de programación interpretado cuya filosofía hace hincapié en la legibilidad de su código",
-				instructor2.getInstructorId());
+//		Curso curso5 = cursoServicio.crearCurso("Javascript", "11 Horas",
+//				"JavaScript es un lenguaje de programación interpretado. Se define como orientado a objetos, ​basado en prototipos.",
+//				instructor1.getInstructorId());
+//
+//		Curso curso6 = cursoServicio.crearCurso("Bootstrap", "1 Hora",
+//				"Bootstrap es una biblioteca multiplataforma o conjunto de herramientas de código abierto para diseño de sitios y aplicaciones web",
+//				instructor2.getInstructorId());
+//
+//		Curso curso7 = cursoServicio.crearCurso("Python", "3 Horas",
+//				"Python es un lenguaje de alto nivel de programación interpretado cuya filosofía hace hincapié en la legibilidad de su código",
+//				instructor2.getInstructorId());
 
 		Contenido archivos1 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
 				"task1", byteArray, "task2", byteArray, "tutorial", byteArray, "imagen", byteArray,
 				curso1.getCursoId());
 
+		Contenido archivos2 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
+				"task1", byteArray, "task2", byteArray, "tutorial", byteArray, "imagen", byteArray,
+				curso2.getCursoId());
+
+		Contenido archivos3 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
+				"task1", byteArray, "task2", byteArray, "tutorial", byteArray, "imagen", byteArray,
+				curso3.getCursoId());
+
+		Contenido archivos4 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
+				"task1", byteArray, "task2", byteArray, "tutorial", byteArray, "imagen", byteArray,
+				curso4.getCursoId());
+
 		cursoServicio.asignarEstudianteToCurso(curso1.getCursoId(), estudiante1.getEstudianteId());
 		cursoServicio.asignarEstudianteToCurso(curso2.getCursoId(), estudiante2.getEstudianteId());
 		cursoServicio.asignarEstudianteToCurso(curso3.getCursoId(), estudiante1.getEstudianteId());
 		cursoServicio.asignarEstudianteToCurso(curso4.getCursoId(), estudiante2.getEstudianteId());
-		cursoServicio.asignarEstudianteToCurso(curso5.getCursoId(), estudiante1.getEstudianteId());
-		cursoServicio.asignarEstudianteToCurso(curso6.getCursoId(), estudiante2.getEstudianteId());
-		cursoServicio.asignarEstudianteToCurso(curso7.getCursoId(), estudiante1.getEstudianteId());
+//		cursoServicio.asignarEstudianteToCurso(curso5.getCursoId(), estudiante1.getEstudianteId());
+//		cursoServicio.asignarEstudianteToCurso(curso6.getCursoId(), estudiante2.getEstudianteId());
+//		cursoServicio.asignarEstudianteToCurso(curso7.getCursoId(), estudiante1.getEstudianteId());
 		cursoServicio.asignarEstudianteToCurso(curso1.getCursoId(), estudiante2.getEstudianteId());
 	};
 }

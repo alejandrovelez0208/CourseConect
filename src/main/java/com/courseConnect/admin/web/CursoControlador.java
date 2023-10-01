@@ -2,6 +2,7 @@ package com.courseConnect.admin.web;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.courseConnect.admin.dao.ContenidoDao;
+import com.courseConnect.admin.dao.InstructorDao;
 import com.courseConnect.admin.entidad.Contenido;
 import com.courseConnect.admin.entidad.Curso;
 import com.courseConnect.admin.entidad.Instructor;
@@ -29,6 +32,9 @@ public class CursoControlador {
 
 	@Autowired
 	private InstructorServicio instructorServicio;
+
+	@Autowired
+	private ContenidoDao contenidoDao;
 
 	@Autowired
 	private ContenidoServicio contenidoServicio;
@@ -52,7 +58,7 @@ public class CursoControlador {
 	}
 
 	@GetMapping(value = "/formUpdate")
-	public String updateCourse(Model model, Long cursoId) {
+	public String updateCursos(Model model, Long cursoId) {
 		Curso curso = cursoServicio.cargarCursoPorId(cursoId);
 		Contenido contenido = new Contenido();
 		List<Instructor> instructors = instructorServicio.fetchInstructor();
@@ -60,6 +66,15 @@ public class CursoControlador {
 		model.addAttribute("listInstructors", instructors);
 		model.addAttribute("contenido", contenido);
 		return "curso-views/formUpdate";
+	}
+
+	@GetMapping(value = "/formCrear")
+	public String formCrear(Model model) {
+		List<Instructor> instructors = instructorServicio.fetchInstructor();
+		model.addAttribute("listInstructors", instructors);
+		model.addAttribute("curso", new Curso());
+		model.addAttribute("contenido", new Contenido());
+		return "curso-views/formCrear";
 	}
 
 	@PostMapping(value = "/save", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
@@ -70,15 +85,24 @@ public class CursoControlador {
 			@RequestParam("archivoVideo") MultipartFile archivoVideo,
 			@RequestParam("imagenGuia") MultipartFile imagenGuia, Curso curso) throws IOException {
 		cursoServicio.crearOrActualizarCurso(curso);
-		actualizarContenidoCurso(archivo1Pdf, archivo2Pdf, archivo1Doc, archivo2Doc, archivoVideo, imagenGuia,
-				curso.getCursoId());
+		Optional<Contenido> contenido = contenidoDao.findById(curso.getCursoId());
+		if (contenido != null && !contenido.isEmpty()) {
+			actualizarOrCrearContenidoCurso(archivo1Pdf, archivo2Pdf, archivo1Doc, archivo2Doc, archivoVideo,
+					imagenGuia, curso.getCursoId(), true);
+		} else {
+			actualizarOrCrearContenidoCurso(archivo1Pdf, archivo2Pdf, archivo1Doc, archivo2Doc, archivoVideo,
+					imagenGuia, curso.getCursoId(), false);
+		}
 		return "redirect:/cursos/index";
 	}
 
-	public Contenido actualizarContenidoCurso(MultipartFile archivo1Pdf, MultipartFile archivo2Pdf,
+	public void actualizarOrCrearContenidoCurso(MultipartFile archivo1Pdf, MultipartFile archivo2Pdf,
 			MultipartFile archivo1Doc, MultipartFile archivo2Doc, MultipartFile archivoVideo, MultipartFile imagenGuia,
-			Long cursoId) throws IOException {
-		Contenido contenido = contenidoServicio.cargarContenidoById(cursoId);
+			Long cursoId, Boolean estado) throws IOException {
+		Contenido contenido = new Contenido();
+		if (estado) {
+			contenido = contenidoServicio.cargarContenidoById(cursoId);
+		}
 		contenido.setNombre1Pdf(archivo1Pdf.getOriginalFilename());
 		contenido.setArchivo1Pdf(archivo1Pdf.getBytes());
 		contenido.setNombre2Pdf(archivo2Pdf.getOriginalFilename());
@@ -91,7 +115,13 @@ public class CursoControlador {
 		contenido.setArchivoVideo(archivoVideo.getBytes());
 		contenido.setImagenNombre(imagenGuia.getOriginalFilename());
 		contenido.setImagenGuia(imagenGuia.getBytes());
-		contenidoServicio.crearOrActualizarContenido(contenido);
-		return contenido;
+		if (estado) {
+			contenidoServicio.crearOrActualizarContenido(contenido);
+		}
+		contenidoServicio.guardarContenido(contenido.getNombre1Pdf(), contenido.getArchivo1Pdf(),
+				contenido.getNombre2Pdf(), contenido.getArchivo2Pdf(), contenido.getNombre1Doc(),
+				contenido.getArchivo1Doc(), contenido.getNombre2Doc(), contenido.getArchivo2Doc(),
+				contenido.getTutorialVideo(), contenido.getArchivoVideo(), contenido.getImagenNombre(),
+				contenido.getImagenGuia(), cursoId);
 	}
 }

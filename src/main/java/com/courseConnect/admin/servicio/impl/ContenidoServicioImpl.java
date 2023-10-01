@@ -36,7 +36,7 @@ public class ContenidoServicioImpl implements ContenidoServicio {
 	@Override
 	public Contenido cargarContenidoById(Long CursoId) {
 		Contenido contenido = contenidoDao.findById(CursoId)
-				.orElseThrow(() -> new EntityNotFoundException("Contenido con Id" + CursoId + "No Encontrado"));
+				.orElseThrow(() -> new EntityNotFoundException("Contenido con Id" + CursoId + " No Encontrado"));
 		return contenido;
 	}
 

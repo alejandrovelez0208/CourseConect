@@ -83,9 +83,9 @@ public class MyRunner implements CommandLineRunner {
 				"React es un framework para aplicaciones web desarrollado en TypeScript, de código abierto, mantenido por Google",
 				instructor2.getInstructorId());
 
-//		Curso curso5 = cursoServicio.crearCurso("Javascript", "11 Horas",
-//				"JavaScript es un lenguaje de programación interpretado. Se define como orientado a objetos, ​basado en prototipos.",
-//				instructor1.getInstructorId());
+		Curso curso5 = cursoServicio.crearCurso("Javascript", "11 Horas",
+				"JavaScript es un lenguaje de programacion objetos, ​basado en prototipos.",
+				instructor1.getInstructorId());
 //
 //		Curso curso6 = cursoServicio.crearCurso("Bootstrap", "1 Hora",
 //				"Bootstrap es una biblioteca multiplataforma o conjunto de herramientas de código abierto para diseño de sitios y aplicaciones web",
@@ -110,6 +110,10 @@ public class MyRunner implements CommandLineRunner {
 		Contenido archivos4 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
 				"task1", byteArray, "task2", byteArray, "tutorial", byteArray, "imagen", byteArray,
 				curso4.getCursoId());
+
+		Contenido archivos5 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
+				"task1", byteArray, "task2", byteArray, "tutorial", byteArray, "imagen", byteArray,
+				curso5.getCursoId());
 
 		cursoServicio.asignarEstudianteToCurso(curso1.getCursoId(), estudiante1.getEstudianteId());
 		cursoServicio.asignarEstudianteToCurso(curso2.getCursoId(), estudiante2.getEstudianteId());

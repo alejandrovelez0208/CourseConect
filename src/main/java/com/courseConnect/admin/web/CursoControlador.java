@@ -1,8 +1,11 @@
 package com.courseConnect.admin.web;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -123,5 +126,23 @@ public class CursoControlador {
 				contenido.getArchivo1Doc(), contenido.getNombre2Doc(), contenido.getArchivo2Doc(),
 				contenido.getTutorialVideo(), contenido.getArchivoVideo(), contenido.getImagenNombre(),
 				contenido.getImagenGuia(), cursoId);
+	}
+
+	@GetMapping(value = "index/estudiante")
+	public String cursosParaEstudianteActual(Model model) {
+		Long estudianteId = 1L;
+		List<Curso> cursosSubcritos = cursoServicio.fetchCursosPorEstudiante(estudianteId);
+		List<Curso> otrosCursos = cursoServicio.fetchAll().stream().filter(curso -> !cursosSubcritos.contains(curso))
+				.collect(Collectors.toList());
+		model.addAttribute("listCursos", cursosSubcritos);
+		model.addAttribute("otrosCursos", otrosCursos);
+		return "curso-views/estudiante-cursos";
+	}
+
+	@GetMapping(value = "/inscribirEstudiante")
+	public String inscribirEstudianteActualEnCurso(Long cursoId) {
+		Long estudianteId = 1L;
+		cursoServicio.asignarEstudianteToCurso(cursoId, estudianteId);
+		return "redirect:/cursos/index/estudiante";
 	}
 }

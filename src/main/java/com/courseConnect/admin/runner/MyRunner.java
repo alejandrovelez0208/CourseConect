@@ -122,6 +122,9 @@ public class MyRunner implements CommandLineRunner {
 //		cursoServicio.asignarEstudianteToCurso(curso5.getCursoId(), estudiante1.getEstudianteId());
 //		cursoServicio.asignarEstudianteToCurso(curso6.getCursoId(), estudiante2.getEstudianteId());
 //		cursoServicio.asignarEstudianteToCurso(curso7.getCursoId(), estudiante1.getEstudianteId());
-		cursoServicio.asignarEstudianteToCurso(curso1.getCursoId(), estudiante2.getEstudianteId());
+//		cursoServicio.asignarEstudianteToCurso(curso1.getCursoId(), estudiante2.getEstudianteId());
+//		cursoServicio.asignarEstudianteToCurso(curso4.getCursoId(), estudiante1.getEstudianteId());
+//		cursoServicio.asignarEstudianteToCurso(curso5.getCursoId(), estudiante1.getEstudianteId());
+//		cursoServicio.asignarEstudianteToCurso(curso2.getCursoId(), estudiante1.getEstudianteId());
 	};
 }

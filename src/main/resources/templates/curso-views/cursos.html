@@ -26,9 +26,9 @@
 						<div th:each="curso:${listCursos}" class="col-md-4">
 							<li class="productos-list-item">
 								<div class="contenedor-caja">
-									<h3 th:text="${curso.getCursoNombre()}"></h3>
+									<h4 th:text="${curso.getCursoNombre()}"></h4>
 									<h6>
-										<i class="fa fa-medal"></i> ID: <span
+										<i class="fa fa-medal"></i><span>ID:</span> <span
 											th:text="${curso.getCursoId()}"></span>
 									</h6>
 									<h6>
@@ -37,7 +37,7 @@
 									</h6>
 									<h6>
 										<i class="fa fa-group"></i> <span
-											th:text="${curso.getEstudiante().size()}"></span> Estudiantes
+											th:text="${curso.getEstudiante().size()}"></span><span>Estudiantes</span>
 									</h6>
 									<h6>
 										<i class="fas fa-fingerprint"></i> <span

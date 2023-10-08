@@ -120,6 +120,7 @@ public class CursoControlador {
 		contenido.setImagenGuia(imagenGuia.getBytes());
 		if (estado) {
 			contenidoServicio.crearOrActualizarContenido(contenido);
+			return;
 		}
 		contenidoServicio.guardarContenido(contenido.getNombre1Pdf(), contenido.getArchivo1Pdf(),
 				contenido.getNombre2Pdf(), contenido.getArchivo2Pdf(), contenido.getNombre1Doc(),
@@ -144,5 +145,20 @@ public class CursoControlador {
 		Long estudianteId = 1L;
 		cursoServicio.asignarEstudianteToCurso(cursoId, estudianteId);
 		return "redirect:/cursos/index/estudiante";
+	}
+
+	@GetMapping(value = "index/instructor")
+	public String cursosParaInstructorActual(Model model) {
+		Long instructorId = 1L;
+		Instructor instructor = instructorServicio.cargarInstructorPorId(instructorId);
+		model.addAttribute("listCursos", instructor.getCurso());
+		return "curso-views/instructor-cursos";
+	}
+
+	@GetMapping(value = "/instructor")
+	public String cursosByIdInstructor(Model model, Long instructorId) {
+		Instructor instructor = instructorServicio.cargarInstructorPorId(instructorId);
+		model.addAttribute("listCursos", instructor.getCurso());
+		return "curso-views/instructor-cursos";
 	}
 }

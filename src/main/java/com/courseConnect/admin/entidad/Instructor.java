@@ -1,6 +1,7 @@
 package com.courseConnect.admin.entidad;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Basic;
@@ -61,5 +62,23 @@ public class Instructor {
 	public String toString() {
 		return "Instructor [instructorId=" + instructorId + ", nombres=" + nombres + ", apellidos=" + apellidos
 				+ ", summary=" + summary + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Instructor other = (Instructor) obj;
+		return Objects.equals(apellidos, other.apellidos) && Objects.equals(instructorId, other.instructorId)
+				&& Objects.equals(nombres, other.nombres) && Objects.equals(summary, other.summary);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(apellidos, instructorId, nombres, summary);
 	}
 }

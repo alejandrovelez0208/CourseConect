@@ -12,13 +12,27 @@
 .productos-list-item {
 	display: block;
 	border: 1px solid rgba(0, 0, 0, 0.2);
+	overflow: hidden;
 	padding: 20px;
-	height: 365px;
+	height: 320px;
 	margin-top: 10px;
 }
 
-h6 {
-	font-size: 15px;
+.productos-list-item:hover {
+	transform: scale(1.00);
+	box-shadow: -1px 5px 10px 5px rgba(0, 0, 0, 0.7);
+}
+
+h6, p, span, i {
+	font-size: 13px;
+}
+
+.botones .btn.btn-success {
+	font-size: 13px;
+}
+
+.botones .btn.btn-danger {
+	font-size: 13px;
 }
 
 .botones {

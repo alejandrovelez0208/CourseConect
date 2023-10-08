@@ -1,0 +1,27 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+.productos-list-item {
+	display: block;
+	border: 2px solid rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	padding: 15px;
+	margin: 10px 20px;
+	height: 250px;
+	max-width: 85%;
+}
+
+.productos-list-item:hover {
+	transform: scale(1.00);
+	box-shadow: -1px 5px 10px 5px rgba(0, 0, 0, 0.7);
+}
+
+h6, p, span, i {
+	font-size: 13px;
+}
+
+.botones .btn.btn-success {
+	font-size: 13px;
+}

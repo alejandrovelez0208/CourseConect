@@ -1,95 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:layout="htpp://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css"
-	href="/webjars/bootstrap/5.3.1/css/bootstrap.min.css">
-<title>Crear Curso</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.3.1/css/bootstrap.min.css">
+        <title>Crear Curso</title>
+    </head>
 
-<body>
-	<div class="col-md-6 offset-3 mt-3">
-		<form class="form-control" method="post" enctype="multipart/form-data"
-			th:action="@{save}">
-			<div class="mb-3 mt-3">
-				<label for="cursoNombre" class="form-label">Curso Nombre</label> <input
-					id="cursoNombre" type="text" name="cursoNombre"
-					class="form-control" th:field="${curso.cursoNombre}">
-			</div>
-			<div class="mb-3 mt-3">
-				<label for="cursoDuracion" class="form-label">Curso Duracion</label>
-				<input id="cursoDuracion" type="text" name="cursoDuracion"
-					class="form-control" th:field="${curso.cursoDuracion}">
-			</div>
-			<div class="mb-3 mt-3">
-				<label for="cursoDescripcion" class="form-label">Curso
-					Descripcion</label> <input id="cursoDescripcion" type="text"
-					name="cursoDescripcion" class="form-control"
-					th:field="${curso.cursoDescripcion}">
-			</div>
-			<div class="mb-3 mt-3">
-				<label class="form-label">Instructor:</label> <select
-					th:field="${curso.instructor}" name="instructor"
-					class="form-select">
-					<option th:each="instructor:${listInstructors}"
-						th:text="${instructor.getNombres()}+ ' '+${instructor.getApellidos()}"
-						th:value="${instructor.getInstructorId()}"></option>
-				</select>
-			</div>
-			<br>
-			<div class="form-control">
-				<div class="mb-3 mt-3">
-					<div class="mb-3 mt-3">
-						<label>Documentos de Apoyo</label>
-					</div>
-					<div class="mb-3 mt-3">
-						<label for="pdfFile">Seleccionar archivo PDF:</label> <input
-							class="form-control" type="file" id="archivoPdf"
-							name="archivoPdf" accept=".pdf" multiple
-							th:field="${contenido.archivo1Pdf}">
-					</div>
-					<div class="mb-3 mt-3">
-						<label for="pdfFile">Seleccionar archivo PDF:</label> <input
-							class="form-control" type="file" id="archivoPdf"
-							name="archivoPdf" accept=".pdf" multiple
-							th:field="${contenido.archivo2Pdf}">
-					</div>
-				</div>
-			</div>
-			<br>
-			<div class="form-control">
-				<div class="mb-3 mt-3">
-					<label>Task</label>
-					<div class="mb-3 mt-3">
-						<label for="archivoDoc">Seleccionar archivo Doc:</label><input
-							class="form-control" type="file" id="archivoDoc"
-							name="archivoDoc" accept=".docx"
-							th:field="${contenido.archivo1Doc}">
-					</div>
-					<div class="mb-3 mt-3">
-						<label for="archivoDoc">Seleccionar archivo Doc:</label><input
-							class="form-control" type="file" id="archivoDoc"
-							name="archivoDoc" accept=".docx"
-							th:field="${contenido.archivo2Doc}">
-					</div>
-					<div class="mb-3 mt-3">
-						<label for="archivoVideo">Video Tutorial:</label> <input
-							class="form-control" type="file" id="archivoVideo"
-							name="archivoVideo" th:field="${contenido.archivoVideo}">
-					</div>
-					<div class="mb-3 mt-3">
-						<label for="imagenGuia">Imagen Guia:</label> <input
-							class="form-control" type="file" id="archivoImagen"
-							name="archivoImagen" th:field="${contenido.imagenGuia}">
-					</div>
-				</div>
-			</div>
-			<br>
-			<button type="submit" class="btn btn-primary">Crear</button>
-		</form>
-	</div>
-</body>
-
+    <body>
+        <div layout:fragment="content1">
+            <div class="col-md-6 offset-3 mt-3">
+                <form class="form-control" method="post" enctype="multipart/form-data" th:action="@{save}">
+                    <div class="mb-3 mt-3">
+                        <label for="cursoNombre" class="form-label">Curso Nombre</label>
+                        <input id="cursoNombre" type="text" name="cursoNombre" class="form-control" th:field="${curso.cursoNombre}">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="cursoDuracion" class="form-label">Curso Duracion</label>
+                        <input id="cursoDuracion" type="text" name="cursoDuracion" class="form-control" th:field="${curso.cursoDuracion}">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="cursoDescripcion" class="form-label">Curso
+                            					Descripcion</label>
+                        <input id="cursoDescripcion" type="text" name="cursoDescripcion" class="form-control" th:field="${curso.cursoDescripcion}">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label class="form-label">Instructor:</label>
+                        <select th:field="${curso.instructor}" name="instructor" class="form-select">
+                            <option th:each="instructor:${listInstructors}" th:text="${instructor.getNombres()}+ ' '+${instructor.getApellidos()}" th:value="${instructor.getInstructorId()}"></option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-control">
+                        <div class="mb-3 mt-3">
+                            <div class="mb-3 mt-3">
+                                <label>Documentos de Apoyo</label>
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="pdfFile">Seleccionar archivo PDF:</label>
+                                <input class="form-control" type="file" id="archivoPdf" name="archivoPdf" accept=".pdf" multiple th:field="${contenido.archivo1Pdf}">
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="pdfFile">Seleccionar archivo PDF:</label>
+                                <input class="form-control" type="file" id="archivoPdf" name="archivoPdf" accept=".pdf" multiple th:field="${contenido.archivo2Pdf}">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-control">
+                        <div class="mb-3 mt-3">
+                            <label>Task</label>
+                            <div class="mb-3 mt-3">
+                                <label for="archivoDoc">Seleccionar archivo Doc:</label><input class="form-control" type="file" id="archivoDoc" name="archivoDoc" accept=".docx" th:field="${contenido.archivo1Doc}">
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="archivoDoc">Seleccionar archivo Doc:</label><input class="form-control" type="file" id="archivoDoc" name="archivoDoc" accept=".docx" th:field="${contenido.archivo2Doc}">
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="archivoVideo">Video Tutorial:</label>
+                                <input class="form-control" type="file" id="archivoVideo" name="archivoVideo" th:field="${contenido.archivoVideo}">
+                            </div>
+                            <div class="mb-3 mt-3">
+                                <label for="imagenGuia">Imagen Guia:</label>
+                                <input class="form-control" type="file" id="archivoImagen" name="archivoImagen" th:field="${contenido.imagenGuia}">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                </form>
+            </div>
+        </div>
+    </body>
 </html>

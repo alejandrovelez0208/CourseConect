@@ -1,0 +1,8 @@
+.campo-obligatorio {
+    display: none; 
+    color: red;
+}
+
+input:invalid + .campo-obligatorio {
+    display: block;
+}

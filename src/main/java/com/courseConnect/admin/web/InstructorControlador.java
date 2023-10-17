@@ -26,4 +26,17 @@ public class InstructorControlador {
 		model.addAttribute("keyword", keyword);
 		return "instrutores-views/instructores";
 	}
+
+	@GetMapping(value = "/delete")
+	public String eliminarInstructor(Long instructorId, String keyword) {
+		instructorServicio.removerInstructor(instructorId);
+		return "redirect:/instructores/index?keyword=" + keyword;
+	}
+
+	@GetMapping(value = "/formUpdate")
+	public String actualizarInstructor(Model model, Long instructorId) {
+		Instructor instructor = instructorServicio.cargarInstructorPorId(instructorId);
+		model.addAttribute("instructor", instructor);
+		return "instructor-views/formUpdate";
+	}
 }

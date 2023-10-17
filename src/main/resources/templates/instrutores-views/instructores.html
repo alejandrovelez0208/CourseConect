@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="htpp://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
+    <head>
+        <meta charset="ISO-8859-1">
+        <title>Instructores</title>
+    </head>
+    <body>
+        <div layout:fragment="content1">
+            <div class="container mt-2">
+                <div class="card">
+                    <div class="card-header">Lista de Instructores</div>
+                </div>
+                <div class="card-body mt-3">
+                    <form method="get" th:action="@{index}">
+                        <label>Keyword</label>
+                        <input type="text" name="keyword" th:value="${keyword}">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </form>
+                    <table class="table mt-3">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Instructor Id</th>
+                                <th>Instructor Nombre</th>
+                                <th>Instructor Apellido</th>
+                                <th>Instructor Summary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" th:each="instructor:${listInstructors}">
+                                <td th:text="${instructor.getInstructorId()}"></td>
+                                <td th:text="${instructor.getNombres()}"></td>
+                                <td th:text="${instructor.getApellidos()}"></td>
+                                <td th:text="${instructor.getSummary()}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

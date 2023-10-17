@@ -1,8 +1,6 @@
 package com.courseConnect.admin.web;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.courseConnect.admin.dao.ContenidoDao;
-import com.courseConnect.admin.dao.InstructorDao;
 import com.courseConnect.admin.entidad.Contenido;
 import com.courseConnect.admin.entidad.Curso;
 import com.courseConnect.admin.entidad.Instructor;

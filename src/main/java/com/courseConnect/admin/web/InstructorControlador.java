@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,7 +25,7 @@ public class InstructorControlador {
 		List<Instructor> instructores = instructorServicio.buscarInstructorPorNombre(keyword != null ? keyword : "");
 		model.addAttribute("listInstructors", instructores);
 		model.addAttribute("keyword", keyword);
-		return "instrutores-views/instructores";
+		return "instructores-views/instructores";
 	}
 
 	@GetMapping(value = "/delete")
@@ -37,6 +38,12 @@ public class InstructorControlador {
 	public String actualizarInstructor(Model model, Long instructorId) {
 		Instructor instructor = instructorServicio.cargarInstructorPorId(instructorId);
 		model.addAttribute("instructor", instructor);
-		return "instructor-views/formUpdate";
+		return "instructores-views/formUpdate";
+	}
+	
+	@PostMapping(value ="/update")
+	public String actualizar(Instructor instructores) {
+		instructorServicio.actualizarInstructor(instructores);
+		return "redirect:/instructores/index";
 	}
 }

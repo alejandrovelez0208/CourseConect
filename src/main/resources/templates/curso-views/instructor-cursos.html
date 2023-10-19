@@ -9,7 +9,7 @@
     </head>
     <body>
         <div layout:fragment="content1">
-            <div class="container">
+            <div class="container mt-2">
                 <div class="card">
                     <div class="card-header">Hola.. Estos son tus Cursos:</div>
                     <div th:each="curso:${listCursos}">
@@ -37,7 +37,9 @@
                             <p th:text="${curso.getCursoDescripcion()}"></p>
                             <div class="botones">
                                 <div>
-                                    <a class="btn btn-success custom-btn" th:href="@{/cursos/formUpdate(cursoId=${curso.getCursoId()})}">Actualizar</a>
+                                    <a class="btn btn-success custom-btn" th:href="@{/cursos/formUpdate(cursoId=${curso.getCursoId()})}">
+                                        <i class="fa fa-pen"></i>
+                                        Actualizar</a>
                                 </div>
                             </div>
                         </li>

@@ -29,10 +29,26 @@ h6, p, span, i {
 
 .botones .btn.btn-success {
 	font-size: 13px;
+	background-color: #3498db;
+	border: none;
+	border-radius: 0;
 }
 
 .botones .btn.btn-danger {
 	font-size: 13px;
+	background-color: #ec4230;
+	color: #fff;
+	border: none;
+	border-radius: 0;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+}
+
+.botones .btn.btn-danger:hover {
+    background-color: #C40D05; 
+    color: #fff;
 }
 
 .botones {
@@ -45,4 +61,5 @@ h6, p, span, i {
 	flex-direction: column;
 	justify-content: space-between;
 	height: 100%;
+	
 }

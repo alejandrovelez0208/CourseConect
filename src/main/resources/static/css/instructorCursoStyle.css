@@ -24,4 +24,7 @@ h6, p, span, i {
 
 .botones .btn.btn-success {
 	font-size: 13px;
+	background-color: #3498db;
+	border: none;
+	border-radius: 0;
 }

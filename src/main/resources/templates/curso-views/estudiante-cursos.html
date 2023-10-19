@@ -40,7 +40,9 @@
                                         <p th:text="${curso.getCursoDescripcion()}"></p>
                                         <div class="botones">
                                             <div>
-                                                <a class="btn btn-primary">Reanudar el aprendizaje</a>
+                                                <a class="btn btn-primary">
+                                                    <i class="fa fa-file"></i>
+                                                    Reanudar el aprendizaje</a>
                                             </div>
                                         </div>
                                     </div>
@@ -78,7 +80,9 @@
                                     <p th:text="${curso.getCursoDescripcion()}"></p>
                                     <div class="botones">
                                         <div>
-                                            <a class="btn btn-success" th:href="@{/cursos/inscribirEstudiante(cursoId=${curso.getCursoId()})}">Inscribirse</a>
+                                            <a class="btn btn-success" th:href="@{/cursos/inscribirEstudiante(cursoId=${curso.getCursoId()})}">
+                                                <i class="fa fa-location-arrow"></i>
+                                                Inscribirse</a>
                                         </div>
                                     </div>
                                 </div>

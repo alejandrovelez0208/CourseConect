@@ -48,10 +48,14 @@
                                         <p th:text="${curso.getCursoDescripcion()}"></p>
                                         <div class="botones">
                                             <div>
-                                                <a class="btn btn-danger" onclick="return confirm('El curso se Eliminara, Esta seguro')" th:href="@{/cursos/delete(cursoId=${curso.getCursoId()},keyword=${keyword})}">Eliminar</a>
+                                                <a class="btn btn-danger" onclick="return confirm('El curso se Eliminara, Esta seguro')" th:href="@{/cursos/delete(cursoId=${curso.getCursoId()},keyword=${keyword})}">
+                                                    <i class="fa fa-trash"></i>
+                                                    Eliminar</a>
                                             </div>
                                             <div>
-                                                <a class="btn btn-success" th:href="@{/cursos/formUpdate(cursoId=${curso.getCursoId()})}">Actualizar</a>
+                                                <a class="btn btn-success" th:href="@{/cursos/formUpdate(cursoId=${curso.getCursoId()})}">
+                                                    <i class="fa fa-pen"></i>
+                                                    Actualizar</a>
                                             </div>
                                         </div>
                                     </div>

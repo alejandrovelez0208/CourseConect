@@ -22,6 +22,7 @@ import com.courseConnect.admin.entidad.Instructor;
 import com.courseConnect.admin.servicio.ContenidoServicio;
 import com.courseConnect.admin.servicio.CursoServicio;
 import com.courseConnect.admin.servicio.InstructorServicio;
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.*;
 
 @Controller
 @RequestMapping(value = "/cursos")
@@ -44,10 +45,10 @@ public class CursoControlador {
 	}
 
 	@GetMapping(value = "/index")
-	public String cursos(Model model, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+	public String cursos(Model model, @RequestParam(name = KEYWORD, defaultValue = "") String keyword) {
 		List<Curso> cursos = cursoServicio.encontrarCursosPorNombre(keyword);
-		model.addAttribute("listCursos", cursos);
-		model.addAttribute("keyword", keyword);
+		model.addAttribute(LIST_CURSOS, cursos);
+		model.addAttribute(KEYWORD, keyword);
 		return "curso-views/cursos";
 	}
 
@@ -62,18 +63,18 @@ public class CursoControlador {
 		Curso curso = cursoServicio.cargarCursoPorId(cursoId);
 		Contenido contenido = new Contenido();
 		List<Instructor> instructors = instructorServicio.fetchInstructor();
-		model.addAttribute("curso", curso);
-		model.addAttribute("listInstructors", instructors);
-		model.addAttribute("contenido", contenido);
+		model.addAttribute(CURSO, curso);
+		model.addAttribute(LIST_INSTRUCTORS, instructors);
+		model.addAttribute(CONTENIDO, contenido);
 		return "curso-views/formUpdate";
 	}
 
 	@GetMapping(value = "/formCrear")
 	public String formCrear(Model model) {
 		List<Instructor> instructors = instructorServicio.fetchInstructor();
-		model.addAttribute("listInstructors", instructors);
-		model.addAttribute("curso", new Curso());
-		model.addAttribute("contenido", new Contenido());
+		model.addAttribute(LIST_INSTRUCTORS, instructors);
+		model.addAttribute(CURSO, new Curso());
+		model.addAttribute(CONTENIDO, new Contenido());
 		return "curso-views/formCrear";
 	}
 
@@ -132,8 +133,8 @@ public class CursoControlador {
 		List<Curso> cursosSubcritos = cursoServicio.fetchCursosPorEstudiante(estudianteId);
 		List<Curso> otrosCursos = cursoServicio.fetchAll().stream().filter(curso -> !cursosSubcritos.contains(curso))
 				.collect(Collectors.toList());
-		model.addAttribute("listCursos", cursosSubcritos);
-		model.addAttribute("otrosCursos", otrosCursos);
+		model.addAttribute(LIST_CURSOS, cursosSubcritos);
+		model.addAttribute(OTROS_CURSOS, otrosCursos);
 		return "curso-views/estudiante-cursos";
 	}
 
@@ -148,14 +149,14 @@ public class CursoControlador {
 	public String cursosParaInstructorActual(Model model) {
 		Long instructorId = 1L;
 		Instructor instructor = instructorServicio.cargarInstructorPorId(instructorId);
-		model.addAttribute("listCursos", instructor.getCurso());
+		model.addAttribute(LIST_CURSOS, instructor.getCurso());
 		return "curso-views/instructor-cursos";
 	}
 
 	@GetMapping(value = "/instructor")
 	public String cursosByIdInstructor(Model model, Long instructorId) {
 		Instructor instructor = instructorServicio.cargarInstructorPorId(instructorId);
-		model.addAttribute("listCursos", instructor.getCurso());
+		model.addAttribute(LIST_CURSOS, instructor.getCurso());
 		return "curso-views/instructor-cursos";
 	}
 }

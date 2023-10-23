@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="htpp://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Estudiante</title>
+    </head>
+    <body>
+        <div layout:fragment="content1">
+            <div class="container mt-2">
+                <div class="card">
+                    <div class="card-header">Lista de Estudiante</div>
+                </div>
+                <div class="card-body mt-3">
+                    <form method="get" th:action="@{index}">
+                        <label>Keyword</label>
+                        <input type="text" name="keyword" th:value="${keyword}">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </form>
+                    <table class="table mt-3">
+                        <thead>
+                            <tr class="text-center">
+                                <th>Estudante Id</th>
+                                <th>Estudante Nombre</th>
+                                <th>Estudante Apellido</th>
+                                <th>Estudante Summary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" th:each="estudiante:${listEstudiantes}">
+                                <td th:text="${estudiante.getEstudianteId()}"></td>
+                                <td th:text="${estudiante.getNombres()}"></td>
+                                <td th:text="${estudiante.getApellidos()}"></td>
+                                <td th:text="${estudiante.getNivel()}"></td>
+                                <td>
+                                    <a onclick="return confirm('Are you sure')" class="btn btn-danger" th:href="@{/estudiante/delete(estudianteId=${estudiante.getEstudianteId()}, keyword=${keyword})}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

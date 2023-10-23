@@ -15,7 +15,7 @@ import com.courseConnect.admin.entidad.Instructor;
 import com.courseConnect.admin.entidad.Usuario;
 import com.courseConnect.admin.servicio.InstructorServicio;
 import com.courseConnect.admin.servicio.UsuarioServicio;
-
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.*;
 import jakarta.validation.Valid;
 
 @Controller
@@ -29,10 +29,10 @@ public class InstructorControlador {
 	private UsuarioServicio usuarioServicio;
 
 	@GetMapping(value = "/index")
-	public String instructor(Model model, @RequestParam(name = "keyword", defaultValue = "") String keyword) {
+	public String instructor(Model model, @RequestParam(name = KEYWORD, defaultValue = "") String keyword) {
 		List<Instructor> instructores = instructorServicio.buscarInstructorPorNombre(keyword != null ? keyword : "");
-		model.addAttribute("listInstructors", instructores);
-		model.addAttribute("keyword", keyword);
+		model.addAttribute(LIST_INSTRUCTORS, instructores);
+		model.addAttribute(KEYWORD, keyword);
 		return "instructores-views/instructores";
 	}
 
@@ -45,7 +45,7 @@ public class InstructorControlador {
 	@GetMapping(value = "/formUpdate")
 	public String actualizarInstructor(Model model, Long instructorId) {
 		Instructor instructor = instructorServicio.cargarInstructorPorId(instructorId);
-		model.addAttribute("instructor", instructor);
+		model.addAttribute(INSTRUCTOR, instructor);
 		return "instructores-views/formUpdate";
 	}
 
@@ -57,7 +57,7 @@ public class InstructorControlador {
 
 	@GetMapping(value = "formCreate")
 	public String formInstructors(Model model) {
-		model.addAttribute("instructor", new Instructor());
+		model.addAttribute(INSTRUCTOR, new Instructor());
 		return "instructores-views/formCreate";
 	}
 

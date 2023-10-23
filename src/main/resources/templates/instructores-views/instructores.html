@@ -33,11 +33,14 @@
                                 <td th:text="${instructor.getApellidos()}"></td>
                                 <td th:text="${instructor.getSummary()}"></td>
                                 <td>
-                                    <div>
-                                        <a onclick="return confirm('Are you sure')" class="btn btn-danger" th:href="@{/instructores/delete(instructorId=${instructor.getInstructorId()}, keyword=${keyword})}">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </div>
+                                    <a onclick="return confirm('¿Estas seguro?')" class="btn btn-danger" th:href="@{/instructores/delete(instructorId=${instructor.getInstructorId()}, keyword=${keyword})}">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-info" th:href="@{/cursos/instructor(instructorId=${instructor.getInstructorId()})}">
+                                        <i class="fa fa-pen"></i>
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>

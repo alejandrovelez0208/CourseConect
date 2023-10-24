@@ -33,7 +33,7 @@
                                 <td th:text="${estudiante.getApellidos()}"></td>
                                 <td th:text="${estudiante.getNivel()}"></td>
                                 <td>
-                                    <a onclick="return confirm('Are you sure')" class="btn btn-danger" th:href="@{/estudiante/delete(estudianteId=${estudiante.getEstudianteId()}, keyword=${keyword})}">
+                                    <a onclick="return confirm('Are you sure')" class="btn btn-danger" th:href="@{/estudiantes/delete(estudianteId=${estudiante.getEstudianteId()}, keyword=${keyword})}">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </td>

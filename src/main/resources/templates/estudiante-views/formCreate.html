@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="htpp://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Estudiante</title>
+</head>
+<body>
+    <div layout:fragment="content1">
+        <div class="col-md-6 offset-3 mt-3">
+            <form class="form-control" method="post" th:action="@{/estudiantes/save}">
+                <div class="mb-3 mt-3">
+                    <label for="nombres" class="form-label">Estudiante Nombre:</label>
+                    <input id="nombres" type="text" name="nombres" class="form-control" th:field="${estudiante.nombres}" required>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="apellidos" class="form-label">Estudiante Apellidos:</label>
+                    <input id="apellidos" type="text" name="apellidos" class="form-control" th:field="${estudiante.apellidos}" required>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="nivel" class="form-label">Estudiante Nivel:</label>
+                    <input id="nivel" type="text" name="nivel" class="form-control" th:field="${estudiante.nivel}" required>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input id="email" type="text" name="email" class="form-control" th:field="${estudiante.usuario.email}" required>
+                    <span th:errors="${estudiante.usuario.email}" style="color:red"></span>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <input id="password" type="password" name="password" class="form-control" th:field="${estudiante.usuario.contraseña}" required>
+                </div>
+                <div class="mb-3 mt-3" hidden>
+                    <input name="usuario" class="form-control" th:field="${estudiante.usuario}">
+                </div>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

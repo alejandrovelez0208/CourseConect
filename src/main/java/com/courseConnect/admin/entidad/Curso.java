@@ -1,6 +1,7 @@
 package com.courseConnect.admin.entidad;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Basic;
@@ -57,11 +58,20 @@ public class Curso {
 	}
 
 	public Curso(String cursoNombre, String cursoDuracion, String cursoDescripcion, Instructor instructor) {
-		super();
 		this.cursoNombre = cursoNombre;
 		this.cursoDuracion = cursoDuracion;
 		this.cursoDescripcion = cursoDescripcion;
 		this.instructor = instructor;
+	}
+
+	public Curso(Long cursoId, String cursoNombre, String cursoDuracion, String cursoDescripcion, Instructor instructor,
+			Set<Estudiante> estudiante) {
+		this.cursoId = cursoId;
+		this.cursoNombre = cursoNombre;
+		this.cursoDuracion = cursoDuracion;
+		this.cursoDescripcion = cursoDescripcion;
+		this.instructor = instructor;
+		this.estudiante = estudiante;
 	}
 
 	@Override
@@ -75,8 +85,32 @@ public class Curso {
 		estudiante.getCurso().add(this);
 	}
 
+	//TODO:REVISAR CODIGO, BORRAR ESTUDIANTE Y RETIRARLO DE TODOS LOS CURSOS
 	public void retirarEstudianteDelCurso(Estudiante estudiante) {
-		this.estudiante.remove(estudiante);
-		estudiante.getCurso().add(this);
+		if (this.estudiante.remove(estudiante)) {
+			estudiante.getCurso().remove(this);
+			if (this.estudiante.isEmpty()) {
+				estudiante.getCurso().remove(this);
+			}
+		}
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Curso other = (Curso) obj;
+		return Objects.equals(cursoDescripcion, other.cursoDescripcion)
+				&& Objects.equals(cursoDuracion, other.cursoDuracion) && Objects.equals(cursoId, other.cursoId)
+				&& Objects.equals(cursoNombre, other.cursoNombre);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cursoDescripcion, cursoDuracion, cursoId, cursoNombre);
 	}
 }

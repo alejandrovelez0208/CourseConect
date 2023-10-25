@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +46,7 @@ public class CursoControlador {
 	}
 
 	@GetMapping(value = "/index")
+	@PreAuthorize("hasAuthority('Admin')")
 	public String cursos(Model model, @RequestParam(name = KEYWORD, defaultValue = "") String keyword) {
 		List<Curso> cursos = cursoServicio.encontrarCursosPorNombre(keyword);
 		model.addAttribute(LIST_CURSOS, cursos);
@@ -53,6 +55,7 @@ public class CursoControlador {
 	}
 
 	@GetMapping(value = "/delete")
+	@PreAuthorize("hasAuthority('Admin')")
 	public String deleteCursos(Long cursoId, String keyword) {
 		cursoServicio.removerCurso(cursoId);
 		return "redirect:/cursos/index?keyword=" + keyword;

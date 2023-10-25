@@ -33,7 +33,7 @@ public class Usuario {
 	private String email;
 
 	@Basic
-	@Column(name = "contraseña", nullable = false, length = 45)
+	@Column(name = "contraseña", nullable = false, length = 255)
 	private String contraseña;
 
 	@ManyToMany(fetch = FetchType.EAGER)

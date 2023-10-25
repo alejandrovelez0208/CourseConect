@@ -1,5 +1,7 @@
 package com.courseConnect.admin.servicio.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.courseConnect.admin.dao.RoleDao;
@@ -13,6 +15,9 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class UsuarioServicioImpl implements UsuarioServicio {
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	private UsuarioDao usuarioDao;
 
@@ -30,7 +35,11 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 	@Override
 	public Usuario crearUsuarios(String email, String password) {
-		return usuarioDao.save(new Usuario(email, password));
+		Usuario usuario = cargarUsuarioPorEmail(email);
+		if (usuario != null)
+			throw new RuntimeException("Usuario con email: " + email + "ya existe");
+		String contraseñaEncriptada = passwordEncoder.encode(password);
+		return usuarioDao.save(new Usuario(email, contraseñaEncriptada));
 	}
 
 	@Override

@@ -85,13 +85,14 @@ public class Curso {
 		estudiante.getCurso().add(this);
 	}
 
-	//TODO:REVISAR CODIGO, BORRAR ESTUDIANTE Y RETIRARLO DE TODOS LOS CURSOS
 	public void retirarEstudianteDelCurso(Estudiante estudiante) {
-		if (this.estudiante.remove(estudiante)) {
-			estudiante.getCurso().remove(this);
-			if (this.estudiante.isEmpty()) {
-				estudiante.getCurso().remove(this);
+		if (estudiante.getCurso().size() > 1) {
+			for (Curso estudianteCurso : estudiante.getCurso()) {
+				estudianteCurso.getEstudiante().remove(estudiante);
 			}
+		} else {
+			this.estudiante.remove(estudiante);
+			estudiante.getCurso().remove(this);
 		}
 	}
 

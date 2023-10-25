@@ -66,7 +66,7 @@ public class CursoControlador {
 		model.addAttribute(CURSO, curso);
 		model.addAttribute(LIST_INSTRUCTORS, instructors);
 		model.addAttribute(CONTENIDO, contenido);
-		return "curso-views/formUpdate";
+		return "curso-views/formActualizar";
 	}
 
 	@GetMapping(value = "/formCrear")
@@ -158,5 +158,12 @@ public class CursoControlador {
 		Instructor instructor = instructorServicio.cargarInstructorPorId(instructorId);
 		model.addAttribute(LIST_CURSOS, instructor.getCurso());
 		return "curso-views/instructor-cursos";
+	}
+
+	@GetMapping(value = "/reanuarAprendizaje")
+	public String reanuarAprendizaje(Model model, Long contenidoId) {
+		Contenido contenido = contenidoServicio.cargarContenidoById(contenidoId);
+		model.addAttribute(CONTENIDO, contenido);
+		return "curso-views/formAprendizaje";
 	}
 }

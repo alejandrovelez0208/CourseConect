@@ -51,7 +51,7 @@ public class EstudianteControlador {
 	public String actualizarEstudiante(Model model, Long estudianteId) {
 		Estudiante estudiante = estudianteServicio.cargarEstudiantePorId(estudianteId);
 		model.addAttribute("estudiante", estudiante);
-		return "estudiante-views/formUpdate";
+		return "estudiante-views/formActualizar";
 	}
 
 	@PostMapping(value = "/update")
@@ -63,7 +63,7 @@ public class EstudianteControlador {
 	@GetMapping(value = "/formCreate")
 	public String formEstudiante(Model model) {
 		model.addAttribute("estudiante", new Estudiante());
-		return "estudiante-views/formCreate";
+		return "estudiante-views/formCrear";
 	}
 
 	@PostMapping(value = "/save")

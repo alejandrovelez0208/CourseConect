@@ -46,7 +46,7 @@ public class InstructorControlador {
 	public String actualizarInstructor(Model model, Long instructorId) {
 		Instructor instructor = instructorServicio.cargarInstructorPorId(instructorId);
 		model.addAttribute(INSTRUCTOR, instructor);
-		return "instructores-views/formUpdate";
+		return "instructores-views/formActualizar";
 	}
 
 	@PostMapping(value = "/update")
@@ -58,7 +58,7 @@ public class InstructorControlador {
 	@GetMapping(value = "formCreate")
 	public String formInstructors(Model model) {
 		model.addAttribute(INSTRUCTOR, new Instructor());
-		return "instructores-views/formCreate";
+		return "instructores-views/formCrear";
 	}
 
 	@PostMapping(value = "/save")

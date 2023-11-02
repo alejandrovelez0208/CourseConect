@@ -11,7 +11,9 @@
         <div layout:fragment="content1">
             <div class="container mt-2">
                 <div class="card">
-                    <div class="card-header">Hola.. Estas son tus subscripciones:</div>
+                    <div class="card-header">Hola,
+                        <span class="text-success" th:text="${nombre}+''+${apellido}"></span>
+                        Estas son tus subscripciones:</div>
                     <div class="slider-container">
                         <div class="slider">
                             <div th:each="curso:${listCursos}" class="col-md-4">

@@ -97,7 +97,20 @@ public class CursoControlador {
 	}
 
 	@GetMapping(value = "/formCrear")
-	public String formCrear(Model model) {
+	@PreAuthorize("hasAnyAuthority('Admin','Instructor')")
+	public String formCrear(Model model, Principal principal, Authentication autenticacion) {
+		if (usuarioServicio.usuarioActualTieneRolAhora("Instructor")) {
+			Instructor instructor = instructorServicio.cargarInstructorPorEmail(principal.getName());
+			model.addAttribute(INSTRUCTOR_ACTUAL, instructor);
+		}
+		if (autenticacion != null) {
+			Collection<? extends GrantedAuthority> autoridades = autenticacion.getAuthorities();
+			if (autoridades.stream().anyMatch(auth -> auth.getAuthority().equals("Admin"))) {
+				model.addAttribute("adminSelect", true);
+			} else if (autoridades.stream().anyMatch(auth -> auth.getAuthority().equals("Instructor"))) {
+				model.addAttribute("instructorSelect", true);
+			}
+		}
 		List<Instructor> instructors = instructorServicio.fetchInstructor();
 		model.addAttribute(LIST_INSTRUCTORS, instructors);
 		model.addAttribute(CURSO, new Curso());
@@ -157,17 +170,21 @@ public class CursoControlador {
 	}
 
 	@GetMapping(value = "index/estudiante")
-	public String cursosParaEstudianteActual(Model model) {
-		Long estudianteId = 1L;
-		List<Curso> cursosSubcritos = cursoServicio.fetchCursosPorEstudiante(estudianteId);
+	@PreAuthorize("hasAuthority('Estudiante')")
+	public String cursosParaEstudianteActual(Model model, Principal principal) {
+		Usuario usuario = usuarioServicio.cargarUsuarioPorEmail(principal.getName());
+		List<Curso> cursosSubcritos = cursoServicio.fetchCursosPorEstudiante(usuario.getEstudiante().getEstudianteId());
 		List<Curso> otrosCursos = cursoServicio.fetchAll().stream().filter(curso -> !cursosSubcritos.contains(curso))
 				.collect(Collectors.toList());
 		model.addAttribute(LIST_CURSOS, cursosSubcritos);
 		model.addAttribute(OTROS_CURSOS, otrosCursos);
+		model.addAttribute(NOMBRE, usuario.getEstudiante().getNombres());
+		model.addAttribute(APELLIDO, usuario.getEstudiante().getApellidos());
 		return "curso-views/estudiante-cursos";
 	}
 
 	@GetMapping(value = "/inscribirEstudiante")
+	@PreAuthorize("hasAuthority('Estudiante')")
 	public String inscribirEstudianteActualEnCurso(Long cursoId) {
 		Long estudianteId = 1L;
 		cursoServicio.asignarEstudianteToCurso(cursoId, estudianteId);

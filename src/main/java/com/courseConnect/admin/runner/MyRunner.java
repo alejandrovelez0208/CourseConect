@@ -53,7 +53,7 @@ public class MyRunner implements CommandLineRunner {
 		roleServicio.crearRole(ESTUDIANTE);
 
 		usuarioServicio.asignarRoleToUsuario(usuario1.getEmail(), ADMIN);
-		usuarioServicio.asignarRoleToUsuario(usuario1.getEmail(), INSTRUCTOR);
+//		usuarioServicio.asignarRoleToUsuario(usuario1.getEmail(), INSTRUCTOR);
 		usuarioServicio.asignarRoleToUsuario(usuario2.getEmail(), ESTUDIANTE);
 
 		Instructor instructor1 = instructorServicio.crearInstructor("Jose Carlo", "Guzman Londoño",

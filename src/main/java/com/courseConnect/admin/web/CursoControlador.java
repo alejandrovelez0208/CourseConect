@@ -24,6 +24,7 @@ import com.courseConnect.admin.dao.ContenidoDao;
 import com.courseConnect.admin.entidad.Contenido;
 import com.courseConnect.admin.entidad.Curso;
 import com.courseConnect.admin.entidad.Instructor;
+import com.courseConnect.admin.entidad.Usuario;
 import com.courseConnect.admin.servicio.ContenidoServicio;
 import com.courseConnect.admin.servicio.CursoServicio;
 import com.courseConnect.admin.servicio.InstructorServicio;
@@ -39,10 +40,13 @@ public class CursoControlador {
 
 	private InstructorServicio instructorServicio;
 
+	@Autowired
 	private ContenidoDao contenidoDao;
 
+	@Autowired
 	private ContenidoServicio contenidoServicio;
 
+	@Autowired
 	private UsuarioServicio usuarioServicio;
 
 	public CursoControlador(CursoServicio cursoServicio, InstructorServicio instructorServicio,
@@ -102,6 +106,7 @@ public class CursoControlador {
 	}
 
 	@PostMapping(value = "/save", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+	@PreAuthorize("hasAnyAuthority('Admin', 'Instructor')")
 	public String save(@RequestParam("archivo1Pdf") MultipartFile archivo1Pdf,
 			@RequestParam("archivo2Pdf") MultipartFile archivo2Pdf,
 			@RequestParam("archivo1Doc") MultipartFile archivo1Doc,
@@ -117,7 +122,8 @@ public class CursoControlador {
 			actualizarOrCrearContenidoCurso(archivo1Pdf, archivo2Pdf, archivo1Doc, archivo2Doc, archivoVideo,
 					imagenGuia, curso.getCursoId(), false);
 		}
-		return "redirect:/cursos/index";
+		return usuarioServicio.usuarioActualTieneRolAhora(INSTRUCTOR) ? "redirect:/cursos/index/instructor"
+				: "redirect:/cursos/index";
 	}
 
 	public void actualizarOrCrearContenidoCurso(MultipartFile archivo1Pdf, MultipartFile archivo2Pdf,
@@ -169,10 +175,13 @@ public class CursoControlador {
 	}
 
 	@GetMapping(value = "index/instructor")
-	public String cursosParaInstructorActual(Model model) {
-		Long instructorId = 1L;
-		Instructor instructor = instructorServicio.cargarInstructorPorId(instructorId);
+	@PreAuthorize("hasAuthority('Instructor')")
+	public String cursosParaInstructorActual(Model model, Principal principal) {
+		Usuario usuario = usuarioServicio.cargarUsuarioPorEmail(principal.getName());
+		Instructor instructor = instructorServicio.cargarInstructorPorId(usuario.getInstructor().getInstructorId());
 		model.addAttribute(LIST_CURSOS, instructor.getCurso());
+		model.addAttribute(NOMBRE, instructor.getNombres());
+		model.addAttribute(APELLIDO, instructor.getApellidos());
 		return "curso-views/instructor-cursos";
 	}
 

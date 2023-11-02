@@ -11,4 +11,6 @@ public final class CourseConnectConstantes {
 	public static final String CONTENIDO = "contenido";
 	public static final String INSTRUCTOR = "instructor";
 	public static final String INSTRUCTOR_ACTUAL = "instructorActual";
+	public static final String NOMBRE = "nombre";
+	public static final String APELLIDO = "apellido";
 }

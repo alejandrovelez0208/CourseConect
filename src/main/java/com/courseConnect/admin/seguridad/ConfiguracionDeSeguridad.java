@@ -10,25 +10,28 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 public class ConfiguracionDeSeguridad {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.formLogin();
-		http.authorizeRequests().requestMatchers("/").permitAll();
 
-		http.authorizeRequests().anyRequest().authenticated();
-		http.exceptionHandling().accessDeniedPage("/403");
+	@SuppressWarnings({ "removal" })
+	@Bean
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.formLogin(withDefaults());
+		http.authorizeHttpRequests().requestMatchers("/").permitAll();
+
+		http.authorizeHttpRequests().anyRequest().authenticated();
+		http.exceptionHandling(handling -> handling.accessDeniedPage("/403"));
 		return http.build();
 	}
 
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+	AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 		return authConfig.getAuthenticationManager();
 	}
 }

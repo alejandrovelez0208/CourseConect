@@ -1,6 +1,8 @@
 package com.courseConnect.admin.web;
 
 import java.io.IOException;
+import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -8,6 +10,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,26 +27,29 @@ import com.courseConnect.admin.entidad.Instructor;
 import com.courseConnect.admin.servicio.ContenidoServicio;
 import com.courseConnect.admin.servicio.CursoServicio;
 import com.courseConnect.admin.servicio.InstructorServicio;
+import com.courseConnect.admin.servicio.UsuarioServicio;
+
 import static com.courseConnect.admin.constantes.CourseConnectConstantes.*;
 
 @Controller
 @RequestMapping(value = "/cursos")
 public class CursoControlador {
 
-	@Autowired
 	private CursoServicio cursoServicio;
 
-	@Autowired
 	private InstructorServicio instructorServicio;
 
-	@Autowired
 	private ContenidoDao contenidoDao;
 
-	@Autowired
 	private ContenidoServicio contenidoServicio;
 
-	public CursoControlador(CursoServicio cursoServicio) {
+	private UsuarioServicio usuarioServicio;
+
+	public CursoControlador(CursoServicio cursoServicio, InstructorServicio instructorServicio,
+			UsuarioServicio usuarioServicio) {
 		this.cursoServicio = cursoServicio;
+		this.instructorServicio = instructorServicio;
+		this.usuarioServicio = usuarioServicio;
 	}
 
 	@GetMapping(value = "/index")
@@ -62,7 +69,20 @@ public class CursoControlador {
 	}
 
 	@GetMapping(value = "/formUpdate")
-	public String updateCursos(Model model, Long cursoId) {
+	@PreAuthorize("hasAnyAuthority('Admin','Instructor')")
+	public String updateCursos(Model model, Long cursoId, Principal principal, Authentication autenticacion) {
+		if (usuarioServicio.usuarioActualTieneRolAhora("Instructor")) {
+			Instructor instructor = instructorServicio.cargarInstructorPorEmail(principal.getName());
+			model.addAttribute(INSTRUCTOR_ACTUAL, instructor);
+		}
+		if (autenticacion != null) {
+			Collection<? extends GrantedAuthority> autoridades = autenticacion.getAuthorities();
+			if (autoridades.stream().anyMatch(auth -> auth.getAuthority().equals("Admin"))) {
+				model.addAttribute("adminSelect", true);
+			} else if (autoridades.stream().anyMatch(auth -> auth.getAuthority().equals("Instructor"))) {
+				model.addAttribute("instructorSelect", true);
+			}
+		}
 		Curso curso = cursoServicio.cargarCursoPorId(cursoId);
 		Contenido contenido = new Contenido();
 		List<Instructor> instructors = instructorServicio.fetchInstructor();

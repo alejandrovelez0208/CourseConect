@@ -51,7 +51,6 @@ public class Usuario {
 	}
 
 	public Usuario(String email, String contraseña) {
-		super();
 		this.email = email;
 		this.contraseña = contraseña;
 	}

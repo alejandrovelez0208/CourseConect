@@ -1,6 +1,7 @@
 package com.courseConnect.admin.servicio.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +48,11 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		Usuario usuario = usuarioDao.findByEmail(email);
 		Role role = roleDao.findByNombre(nombreRole);
 		usuario.asignarRoleAUsuario(role);
+	}
+
+	@Override
+	public boolean usuarioActualTieneRolAhora(String roleNombre) {
+		return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+				.anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(roleNombre));
 	}
 }

@@ -29,10 +29,13 @@
                                                                                                         					Descripcion</label>
                         <input id="cursoDescripcion" type="text" name="cursoDescripcion" class="form-control" th:value="${curso.getCursoDescripcion()}">
                     </div>
-                    <div class="mb-3 mt-3">
+                   <div class="mb-3 mt-3">
                         <label class="form-label">Instructor:</label>
-                        <select th:field="${curso.instructor}" name="instructor" class="form-select">
+                        <select th:if="${adminSelect}" th:field="${curso.instructor}" name="instructor" class="form-select">
                             <option th:each="instructor:${listInstructors}" th:text="${instructor.getNombres()}+ ' '+${instructor.getApellidos()}" th:value="${instructor.getInstructorId()}"></option>
+                        </select>
+                         <select th:if="${instructorSelect}" th:field="${curso.instructor}" name="instructor" class="form-select">
+                            <option select th:text="${instructorActual.getNombres()}+ ' '+${instructorActual.getApellidos()}" th:value="${instructorActual.getInstructorId()}"></option>
                         </select>
                     </div>
                     <div class="mb-3 mt-3" th:each="estudiante:${curso.getEstudiante()}">

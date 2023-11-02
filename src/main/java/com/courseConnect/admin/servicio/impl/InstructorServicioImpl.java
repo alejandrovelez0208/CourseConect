@@ -2,6 +2,7 @@ package com.courseConnect.admin.servicio.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.courseConnect.admin.dao.InstructorDao;
@@ -19,15 +20,15 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class InstructorServicioImpl implements InstructorServicio {
 
+	@Autowired
 	private InstructorDao instructorDao;
 
 	private CursoServicio cursoServicio;
 
 	private UsuarioServicio usuarioServicio;
 
-	public InstructorServicioImpl(InstructorDao instructorDao, CursoServicio cursoServicio,
+	public InstructorServicioImpl(CursoServicio cursoServicio,
 			UsuarioServicio usuarioServicio) {
-		this.instructorDao = instructorDao;
 		this.cursoServicio = cursoServicio;
 		this.usuarioServicio = usuarioServicio;
 	}

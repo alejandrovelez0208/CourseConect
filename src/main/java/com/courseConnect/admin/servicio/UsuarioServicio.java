@@ -9,4 +9,6 @@ public interface UsuarioServicio {
 	Usuario crearUsuarios(String email,String password);
 	
 	void asignarRoleToUsuario(String email,String nombreRole);
+	
+	boolean usuarioActualTieneRolAhora(String roleNombre);
 }

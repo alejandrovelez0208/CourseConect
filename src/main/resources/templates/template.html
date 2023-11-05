@@ -10,19 +10,25 @@
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
             <a class="navbar-brand" th:href="@{/cursos/index}">Home</a>
             <div class="collapse navbar-collapse" id="mynavbar">
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav me-auto" th:if="${isAuthentication}">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Cursos</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" th:href="@{/cursos/index}">Buscar</a>
+                                <a class="dropdown-item" th:href="@{/cursos/index}" th:if="${hasAuthorityAdmin}">Buscar</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" th:href="@{/cursos/formCrear}">Nuevos Cursos</a>
+                                <a class="dropdown-item" th:href="@{/cursos/index/estudiante}" th:if="${hasAuthorityEstudiante}">Cursos de estudiante</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/cursos/index/instructor}" th:if="${hasAuthorityInstructor}">Cursos Instructor</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/cursos/formCrear}" th:if="${hasAuthorityAdmin or hasAuthorityInstructor}">Nuevos Cursos</a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" th:if="${isAuthentication && hasAuthorityAdmin}">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Instructores</a>
                         <ul class="dropdown-menu">
                             <li>
@@ -33,7 +39,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" th:if="${isAuthentication && hasAuthorityAdmin}">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Estudiantes</a>
                         <ul class="dropdown-menu">
                             <li>
@@ -43,6 +49,27 @@
                                 <a class="dropdown-item" th:href="@{/estudiantes/formCreate}">Nuevo Estudiante</a>
                             </li>
                         </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown" th:if="${isAuthentication}">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <span th:text="${userName}"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li th:if="${hasAuthorityInstructor}">
+                                <a class="dropdown-item" th:href="@{/instructores/formUpdate}">Actualizar Perfil</a>
+                            </li>
+                            <li th:if="${hasAuthorityEstudiante}">
+                                <a class="dropdown-item" th:href="@{/estudiantes/formUpdate}">Actualizar Perfil</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/logout}">Cerrar Seccion</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item" th:if="${isAnonymous}">
+                        <a class="nav-link" th:href="@{/login}">Login</a>
                     </li>
                 </ul>
             </div>

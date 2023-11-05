@@ -11,27 +11,27 @@
                 <form class="form-control" method="post" th:action="@{/instructores/save}">
                     <div class="mb-3 mt-3">
                         <label for="nombres" class="form-label">Instructor Nombre:</label>
-                        <input id="nombres" type="text" name="nombres" class="form-control" th:field="${instructor.nombres}" required>
+                        <input id="nombres" type="text" name="nombres" class="form-control" th:field="${Instructor.nombres}" required>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="apellidos" class="form-label">Instructor Apellidos:</label>
-                        <input id="apellidos" type="text" name="apellidos" class="form-control" th:field="${instructor.apellidos}" required>
+                        <input id="apellidos" type="text" name="apellidos" class="form-control" th:field="${Instructor.apellidos}" required>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="summary" class="form-label">Instructor Summary:</label>
-                        <input id="summary" type="text" name="summary" class="form-control" th:field="${instructor.summary}" required>
+                        <input id="summary" type="text" name="summary" class="form-control" th:field="${Instructor.summary}" required>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="email" class="form-label">Email:</label>
-                        <input id="email" type="text" name="email" class="form-control" th:field="${instructor.usuario.email}" required>
-                        <span th:errors="${instructor.usuario.email}" style="color:red"></span>
+                        <input id="email" type="text" name="email" class="form-control" th:field="${Instructor.usuario.email}" required>
+                        <span th:errors="${Instructor.usuario.email}" style="color:red"></span>
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="password" class="form-label">Password:</label>
-                        <input id="password" type="password" name="password" class="form-control" th:field="${instructor.usuario.contraseña}" required>
+                        <input id="password" type="password" name="password" class="form-control" th:field="${Instructor.usuario.contraseña}" required>
                     </div>
                     <div class="mb-3 mt-3" hidden>
-                        <input name="usuarios" class="form-control" th:field="${instructor.usuario}">
+                        <input name="usuarios" class="form-control" th:field="${Instructor.usuario}">
                     </div>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>

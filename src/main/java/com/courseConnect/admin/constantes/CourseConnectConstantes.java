@@ -9,8 +9,15 @@ public final class CourseConnectConstantes {
 	public static final String OTROS_CURSOS = "otrorCursos";
 	public static final String CURSO = "curso";
 	public static final String CONTENIDO = "contenido";
-	public static final String INSTRUCTOR = "instructor";
+	public static final String ADMIN = "Admin";
+	public static final String INSTRUCTOR = "Instructor";
+	public static final String ESTUDIANTE = "Estudiante";
 	public static final String INSTRUCTOR_ACTUAL = "instructorActual";
 	public static final String NOMBRE = "nombre";
 	public static final String APELLIDO = "apellido";
+	public static final String IS_ANONYMOUS = "isAnonymous";
+	public static final String IS_AUTHENTICATION = "isAuthentication";
+	public static final String HAS_AUTHORITY_ADMIN = "hasAuthorityAdmin";
+	public static final String HAS_AUTHORITY_STUDENT = "hasAuthorityEstudiante";
+	public static final String HAS_AUTHORITY_INSTRUCTOR = "hasAuthorityInstructor";
 }

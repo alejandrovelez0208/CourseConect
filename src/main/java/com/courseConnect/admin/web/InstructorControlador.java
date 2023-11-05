@@ -1,5 +1,6 @@
 package com.courseConnect.admin.web;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,14 @@ public class InstructorControlador {
 	}
 
 	@GetMapping(value = "/formUpdate")
-	public String actualizarInstructor(Model model, Long instructorId) {
-		Instructor instructor = instructorServicio.cargarInstructorPorId(instructorId);
+	public String actualizarInstructor(Model model, Long instructorId, Principal principal) {
+		Instructor instructor = new Instructor();
+		if (instructorId != null) {
+			instructor = instructorServicio.cargarInstructorPorId(instructorId);
+		} else {
+			instructor = instructorServicio.cargarInstructorPorEmail(principal.getName());
+		}
+
 		model.addAttribute(INSTRUCTOR, instructor);
 		return "instructores-views/formActualizar";
 	}
@@ -52,7 +59,7 @@ public class InstructorControlador {
 	@PostMapping(value = "/update")
 	public String actualizar(Instructor instructores) {
 		instructorServicio.actualizarInstructor(instructores);
-		return "redirect:/instructores/index";
+		return "redirect:/cursos/index/instructor";
 	}
 
 	@GetMapping(value = "formCreate")

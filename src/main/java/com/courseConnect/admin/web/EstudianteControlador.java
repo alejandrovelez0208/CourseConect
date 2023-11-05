@@ -3,6 +3,7 @@ package com.courseConnect.admin.web;
 import static com.courseConnect.admin.constantes.CourseConnectConstantes.KEYWORD;
 import static com.courseConnect.admin.constantes.CourseConnectConstantes.LIST_ESTUDIANTES;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,13 @@ public class EstudianteControlador {
 	}
 
 	@GetMapping(value = "/formUpdate")
-	public String actualizarEstudiante(Model model, Long estudianteId) {
-		Estudiante estudiante = estudianteServicio.cargarEstudiantePorId(estudianteId);
+	public String actualizarEstudiante(Model model, Long estudianteId, Principal principal) {
+		Estudiante estudiante = new Estudiante();
+		if (estudianteId != null) {
+			estudiante = estudianteServicio.cargarEstudiantePorId(estudianteId);
+		} else {
+			estudiante = estudianteServicio.cargarEstudiantePorEmail(principal.getName());
+		}
 		model.addAttribute("estudiante", estudiante);
 		return "estudiante-views/formActualizar";
 	}
@@ -57,7 +63,7 @@ public class EstudianteControlador {
 	@PostMapping(value = "/update")
 	public String actualizarEstudiante(Estudiante estudiante) {
 		estudianteServicio.actualizarEstudiante(estudiante);
-		return "redirect:/estudiantes/index";
+		return "redirect:/cursos/index/estudiante";
 	}
 
 	@GetMapping(value = "/formCreate")

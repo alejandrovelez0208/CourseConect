@@ -8,23 +8,33 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-            <a class="navbar-brand" th:href="@{/cursos/index}">Home</a>
+            <a class="navbar-brand" th:href="@{/cursos/index}">
+                <i class="fa fa-circle-notch"></i>
+                Home</a>
             <div class="collapse navbar-collapse" id="mynavbar">
                 <ul class="navbar-nav me-auto" th:if="${isAuthentication}">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Cursos</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" th:href="@{/cursos/index}" th:if="${hasAuthorityAdmin}">Buscar</a>
+                                <a class="dropdown-item" th:href="@{/cursos/index}" th:if="${hasAuthorityAdmin}">
+                                    <i class="fa fa-search"></i>
+                                    Buscar</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" th:href="@{/cursos/index/estudiante}" th:if="${hasAuthorityEstudiante}">Cursos de estudiante</a>
+                                <a class="dropdown-item" th:href="@{/cursos/index/estudiante}" th:if="${hasAuthorityEstudiante}">
+                                    <i class="fa fa-folder"></i>
+                                    Cursos de estudiante</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" th:href="@{/cursos/index/instructor}" th:if="${hasAuthorityInstructor}">Cursos Instructor</a>
+                                <a class="dropdown-item" th:href="@{/cursos/index/instructor}" th:if="${hasAuthorityInstructor}">
+                                    <i class="fa fa-folder"></i>
+                                    Cursos Instructor</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" th:href="@{/cursos/formCrear}" th:if="${hasAuthorityAdmin or hasAuthorityInstructor}">Nuevos Cursos</a>
+                                <a class="dropdown-item" th:href="@{/cursos/formCrear}" th:if="${hasAuthorityAdmin or hasAuthorityInstructor}">
+                                    <i class="fa fa-plus"></i>
+                                    Nuevos Cursos</a>
                             </li>
                         </ul>
                     </li>
@@ -32,10 +42,14 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Instructores</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" th:href="@{/instructores/index}">Buscar</a>
+                                <a class="dropdown-item" th:href="@{/instructores/index}">
+                                    <i class="fa fa-search"></i>
+                                    Buscar</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" th:href="@{/instructores/formCreate}">Nuevo Instructor</a>
+                                <a class="dropdown-item" th:href="@{/instructores/formCreate}">
+                                    <i class="fa fa-plus"></i>
+                                    Nuevo Instructor</a>
                             </li>
                         </ul>
                     </li>
@@ -43,10 +57,14 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Estudiantes</a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" th:href="@{/estudiantes/index}">Buscar</a>
+                                <a class="dropdown-item" th:href="@{/estudiantes/index}">
+                                    <i class="fa fa-search"></i>
+                                    Buscar</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" th:href="@{/estudiantes/formCreate}">Nuevo Estudiante</a>
+                                <a class="dropdown-item" th:href="@{/estudiantes/formCreate}">
+                                    <i class="fa fa-plus"></i>
+                                    Nuevo Estudiante</a>
                             </li>
                         </ul>
                     </li>
@@ -58,13 +76,19 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li th:if="${hasAuthorityInstructor}">
-                                <a class="dropdown-item" th:href="@{/instructores/formUpdate}">Actualizar Perfil</a>
+                                <a class="dropdown-item" th:href="@{/instructores/formUpdate}">
+                                    <i class="fa fa-pen"></i>
+                                    Actualizar Perfil</a>
                             </li>
                             <li th:if="${hasAuthorityEstudiante}">
-                                <a class="dropdown-item" th:href="@{/estudiantes/formUpdate}">Actualizar Perfil</a>
+                                <a class="dropdown-item" th:href="@{/estudiantes/formUpdate}">
+                                    <i class="fa fa-pen"></i>
+                                    Actualizar Perfil</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" th:href="@{/logout}">Cerrar Seccion</a>
+                                <a class="dropdown-item" th:href="@{/logout}">
+                                    <i class="fa fa-backward"></i>
+                                    Cerrar Seccion</a>
                             </li>
                         </ul>
                     </li>

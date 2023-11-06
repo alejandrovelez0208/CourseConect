@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +31,7 @@ public class InstructorControlador {
 	private UsuarioServicio usuarioServicio;
 
 	@GetMapping(value = "/index")
+	@PreAuthorize("hasAuthority('Admin')")
 	public String instructor(Model model, @RequestParam(name = KEYWORD, defaultValue = "") String keyword) {
 		List<Instructor> instructores = instructorServicio.buscarInstructorPorNombre(keyword != null ? keyword : "");
 		model.addAttribute(LIST_INSTRUCTORS, instructores);
@@ -38,6 +40,7 @@ public class InstructorControlador {
 	}
 
 	@GetMapping(value = "/delete")
+	@PreAuthorize("hasAuthority('Admin')")
 	public String eliminarInstructor(Long instructorId, String keyword) {
 		instructorServicio.removerInstructor(instructorId);
 		return "redirect:/instructores/index?keyword=" + keyword;
@@ -63,12 +66,14 @@ public class InstructorControlador {
 	}
 
 	@GetMapping(value = "formCreate")
+	@PreAuthorize("hasAuthority('Admin')")
 	public String formInstructors(Model model) {
 		model.addAttribute(INSTRUCTOR, new Instructor());
 		return "instructores-views/formCrear";
 	}
 
 	@PostMapping(value = "/save")
+	@PreAuthorize("hasAuthority('Admin')")
 	public String save(@Valid Instructor instructor, BindingResult bindingResult) {
 		Usuario usuario = usuarioServicio.cargarUsuarioPorEmail(instructor.getUsuario().getEmail());
 		if (usuario != null)

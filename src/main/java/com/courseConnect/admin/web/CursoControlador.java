@@ -2,6 +2,7 @@ package com.courseConnect.admin.web;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -212,7 +213,18 @@ public class CursoControlador {
 	@GetMapping(value = "/reanuarAprendizaje")
 	public String reanuarAprendizaje(Model model, Long contenidoId) {
 		Contenido contenido = contenidoServicio.cargarContenidoById(contenidoId);
+		formatearArchivos(model, contenido.getImagenGuia(), contenido.getArchivoVideo());
 		model.addAttribute(CONTENIDO, contenido);
 		return "curso-views/formAprendizaje";
+	}
+
+	public void formatearArchivos(Model model, byte[] imagen, byte[] video) {
+		if (imagen != null && video != null) {
+			String imagenDataURL = "data:image/png;base64," + Base64.getEncoder().encodeToString(imagen);
+			model.addAttribute(IMG_DATA_URL, imagenDataURL);
+
+			String videoDataURL = "data:video/mp4;base64," + Base64.getEncoder().encodeToString(video);
+			model.addAttribute(VIDEO_DATA_URL, videoDataURL);
+		}
 	}
 }

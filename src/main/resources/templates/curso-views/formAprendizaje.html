@@ -1,11 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="htpp://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curso</title>
-</head>
-<body>
-    <div layout:fragment="content1"></div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/formAprendizaje.css}"/>
+        <title>Curso</title>
+    </head>
+    <body>
+        <div layout:fragment="content1">
+            <div class="col-md-8 offset-2 mt-3">
+                <div class="card-header">
+                    <span th:text="${contenido.getCurso.getCursoNombre()}"></span>
+                </div>
+            </div>
+            <div class="col-md-8 offset-2 mt-3">
+                <div class="card-body">
+                    <div>
+                        <label>
+                            <i class="fa fa-arrow-right"></i>
+                            Guia del estudiante
+                            <input type="checkbox" id="guia">
+                        </label>
+                        <section>
+                            <div class="image-container">
+                                <img th:src="${imagenDataURL}" width="300px">
+                            </div>
+                        </section>
+                    </div>
+                    <div>
+                        <label>
+                            <i class="fa fa-arrow-right"></i>
+                            Video tutorial
+                            <input type="checkbox" id="tutorial">
+                        </label>
+                        <section>
+                            <div class="video-container">
+                                <video th:src="${videoDataURL}" width="400" height="300" controls></video>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

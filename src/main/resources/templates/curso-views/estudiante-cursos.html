@@ -42,7 +42,7 @@
                                         <p th:text="${curso.getCursoDescripcion()}"></p>
                                         <div class="botones">
                                             <div>
-                                                <a class="btn btn-primary">
+                                                <a class="btn btn-primary" th:href="@{/cursos/reanuarAprendizaje(contenidoId=${curso.getCursoId()})}">
                                                     <i class="fa fa-file"></i>
                                                     Reanudar el aprendizaje</a>
                                             </div>

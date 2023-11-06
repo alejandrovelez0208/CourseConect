@@ -1,7 +1,11 @@
 package com.courseConnect.admin.runner;
 
+import java.nio.file.Files;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import com.courseConnect.admin.entidad.Contenido;
@@ -44,6 +48,14 @@ public class MyRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		byte[] byteArray = { 1, 2, 3, 4, 5 };
+
+		String rutaImagen = "static/img/infografia.jpg";
+		Resource resource = new ClassPathResource(rutaImagen);
+		byte[] bytesImagen = Files.readAllBytes(resource.getFile().toPath());
+
+		String rutaVideo = "static/img/firestone.mp4";
+		Resource resourceVideo = new ClassPathResource(rutaVideo);
+		byte[] bytesVideo = Files.readAllBytes(resourceVideo.getFile().toPath());
 
 		Usuario usuario1 = usuarioServicio.crearUsuarios("usuario1@gmail.com", "pass1");
 		Usuario usuario2 = usuarioServicio.crearUsuarios("usuario2@gmail.com", "pass2");
@@ -96,23 +108,23 @@ public class MyRunner implements CommandLineRunner {
 //				instructor2.getInstructorId());
 
 		Contenido archivos1 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
-				"task1", byteArray, "task2", byteArray, "tutorial", byteArray, "imagen", byteArray,
+				"task1", byteArray, "task2", byteArray, "tutorial", bytesVideo, "imagen", bytesImagen,
 				curso1.getCursoId());
 
 		Contenido archivos2 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
-				"task1", byteArray, "task2", byteArray, "tutorial", byteArray, "imagen", byteArray,
+				"task1", byteArray, "task2", byteArray, "tutorial", bytesVideo, "imagen", bytesImagen,
 				curso2.getCursoId());
 
 		Contenido archivos3 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
-				"task1", byteArray, "task2", byteArray, "tutorial", byteArray, "imagen", byteArray,
+				"task1", byteArray, "task2", byteArray, "tutorial", bytesVideo, "imagen", bytesImagen,
 				curso3.getCursoId());
 
 		Contenido archivos4 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
-				"task1", byteArray, "task2", byteArray, "tutorial", byteArray, "imagen", byteArray,
+				"task1", byteArray, "task2", byteArray, "tutorial", bytesVideo, "imagen", bytesImagen,
 				curso4.getCursoId());
 
 		Contenido archivos5 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
-				"task1", byteArray, "task2", byteArray, "tutorial", byteArray, "imagen", byteArray,
+				"task1", byteArray, "task2", byteArray, "tutorial", bytesVideo, "imagen", bytesImagen,
 				curso5.getCursoId());
 
 		cursoServicio.asignarEstudianteToCurso(curso1.getCursoId(), estudiante1.getEstudianteId());

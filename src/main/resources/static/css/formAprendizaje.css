@@ -1,0 +1,40 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.card-header {
+	border: 1px solid gray;
+	padding: 10px;
+	margin: 10px;
+	font-family: monospace;
+	font-size: 25px;
+}
+
+.card-body {
+	border: 1px solid gray;
+	padding: 10px;
+	margin: 10px;
+	font-family: monospace;
+}
+
+label {
+	display: block;
+}
+
+label input[type="checkbox"] {
+	float: right;
+	margin-left: 10px;
+}
+
+.image-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.video-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

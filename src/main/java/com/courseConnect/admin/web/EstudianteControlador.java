@@ -7,6 +7,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,6 +36,7 @@ public class EstudianteControlador {
 	}
 
 	@GetMapping(value = "/index")
+	@PreAuthorize("hasAuthority('Admin')")
 	public String estudiantes(Model model, @RequestParam(name = KEYWORD, defaultValue = "") String keyword) {
 		List<Estudiante> estudiantes = estudianteServicio.cargarEstudiantePorNombre(keyword);
 		model.addAttribute(LIST_ESTUDIANTES, estudiantes);
@@ -43,12 +45,14 @@ public class EstudianteControlador {
 	}
 
 	@GetMapping(value = "/delete")
+	@PreAuthorize("hasAuthority('Admin')")
 	public String eliminarEstudiante(Long estudianteId, String keyword) {
 		estudianteServicio.removerEstudiante(estudianteId);
 		return "redirect:/estudiantes/index?keyword=" + keyword;
 	}
 
 	@GetMapping(value = "/formUpdate")
+	@PreAuthorize("hasAuthority('Estudiante')")
 	public String actualizarEstudiante(Model model, Long estudianteId, Principal principal) {
 		Estudiante estudiante = new Estudiante();
 		if (estudianteId != null) {
@@ -61,18 +65,21 @@ public class EstudianteControlador {
 	}
 
 	@PostMapping(value = "/update")
+	@PreAuthorize("hasAuthority('Estudiante')")
 	public String actualizarEstudiante(Estudiante estudiante) {
 		estudianteServicio.actualizarEstudiante(estudiante);
 		return "redirect:/cursos/index/estudiante";
 	}
 
 	@GetMapping(value = "/formCreate")
+	@PreAuthorize("hasAuthority('Admin')")
 	public String formEstudiante(Model model) {
 		model.addAttribute("estudiante", new Estudiante());
 		return "estudiante-views/formCrear";
 	}
 
 	@PostMapping(value = "/save")
+	@PreAuthorize("hasAuthority('Admin')")
 	public String save(Estudiante estudiante, BindingResult bindingResult) {
 		Usuario usuario = usuarioServicio.cargarUsuarioPorEmail(estudiante.getUsuario().getEmail());
 		if (usuario != null)

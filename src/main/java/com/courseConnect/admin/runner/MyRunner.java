@@ -47,8 +47,6 @@ public class MyRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		byte[] byteArray = { 1, 2, 3, 4, 5 };
-
 		String rutaImagen = "static/img/infografia.jpg";
 		Resource resource = new ClassPathResource(rutaImagen);
 		byte[] bytesImagen = Files.readAllBytes(resource.getFile().toPath());
@@ -56,6 +54,22 @@ public class MyRunner implements CommandLineRunner {
 		String rutaVideo = "static/img/firestone.mp4";
 		Resource resourceVideo = new ClassPathResource(rutaVideo);
 		byte[] bytesVideo = Files.readAllBytes(resourceVideo.getFile().toPath());
+
+		String rutaPdf = "static/img/carnet.pdf";
+		Resource resourcePdf = new ClassPathResource(rutaPdf);
+		byte[] bytesPdf = Files.readAllBytes(resourcePdf.getFile().toPath());
+
+		String rutaPdf2 = "static/img/carnet2.pdf";
+		Resource resourcePdf2 = new ClassPathResource(rutaPdf2);
+		byte[] bytesPdf2 = Files.readAllBytes(resourcePdf2.getFile().toPath());
+
+		String rutaDoc = "static/img/prueba.docx";
+		Resource resourceDoc = new ClassPathResource(rutaDoc);
+		byte[] bytesDoc = Files.readAllBytes(resourceDoc.getFile().toPath());
+
+		String rutaDoc2 = "static/img/prueba2.docx";
+		Resource resourceDoc2 = new ClassPathResource(rutaDoc2);
+		byte[] bytesDoc2 = Files.readAllBytes(resourceDoc2.getFile().toPath());
 
 		Usuario usuario1 = usuarioServicio.crearUsuarios("usuario1@gmail.com", "pass1");
 		Usuario usuario2 = usuarioServicio.crearUsuarios("usuario2@gmail.com", "pass2");
@@ -107,25 +121,20 @@ public class MyRunner implements CommandLineRunner {
 //				"Python es un lenguaje de alto nivel de programación interpretado cuya filosofía hace hincapié en la legibilidad de su código",
 //				instructor2.getInstructorId());
 
-		Contenido archivos1 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
-				"task1", byteArray, "task2", byteArray, "tutorial", bytesVideo, "imagen", bytesImagen,
-				curso1.getCursoId());
+		Contenido archivos1 = contenidoServicio.guardarContenido("docApoyo1", bytesDoc, "docApoyo2", bytesDoc2, "task1",
+				bytesPdf, "task2", bytesPdf2, "tutorial", bytesVideo, "imagen", bytesImagen, curso1.getCursoId());
 
-		Contenido archivos2 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
-				"task1", byteArray, "task2", byteArray, "tutorial", bytesVideo, "imagen", bytesImagen,
-				curso2.getCursoId());
+		Contenido archivos2 = contenidoServicio.guardarContenido("docApoyo1", bytesDoc, "docApoyo2", bytesDoc2, "task1",
+				bytesPdf, "task2", bytesPdf2, "tutorial", bytesVideo, "imagen", bytesImagen, curso2.getCursoId());
 
-		Contenido archivos3 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
-				"task1", byteArray, "task2", byteArray, "tutorial", bytesVideo, "imagen", bytesImagen,
-				curso3.getCursoId());
+		Contenido archivos3 = contenidoServicio.guardarContenido("docApoyo1", bytesDoc, "docApoyo2", bytesDoc2, "task1",
+				bytesPdf, "task2", bytesPdf2, "tutorial", bytesVideo, "imagen", bytesImagen, curso3.getCursoId());
 
-		Contenido archivos4 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
-				"task1", byteArray, "task2", byteArray, "tutorial", bytesVideo, "imagen", bytesImagen,
-				curso4.getCursoId());
+		Contenido archivos4 = contenidoServicio.guardarContenido("docApoyo1", bytesDoc, "docApoyo2", bytesDoc2, "task1",
+				bytesPdf, "task2", bytesPdf2, "tutorial", bytesVideo, "imagen", bytesImagen, curso4.getCursoId());
 
-		Contenido archivos5 = contenidoServicio.guardarContenido("docApoyo1", byteArray, "docApoyo2", byteArray,
-				"task1", byteArray, "task2", byteArray, "tutorial", bytesVideo, "imagen", bytesImagen,
-				curso5.getCursoId());
+		Contenido archivos5 = contenidoServicio.guardarContenido("docApoyo1", bytesDoc, "docApoyo2", bytesDoc2, "task1",
+				bytesPdf, "task2", bytesPdf2, "tutorial", bytesVideo, "imagen", bytesImagen, curso5.getCursoId());
 
 		cursoServicio.asignarEstudianteToCurso(curso1.getCursoId(), estudiante1.getEstudianteId());
 		cursoServicio.asignarEstudianteToCurso(curso2.getCursoId(), estudiante2.getEstudianteId());

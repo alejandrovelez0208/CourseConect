@@ -8,14 +8,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.apache.tomcat.util.file.ConfigurationSource.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,6 +43,8 @@ import static com.courseConnect.admin.constantes.CourseConnectConstantes.*;
 @Controller
 @RequestMapping(value = "/cursos")
 public class CursoControlador {
+
+	private static final int ResponseEntity = 0;
 
 	private CursoServicio cursoServicio;
 
@@ -218,6 +227,51 @@ public class CursoControlador {
 		return "curso-views/formAprendizaje";
 	}
 
+	@GetMapping(value = "/ver-pdf")
+	public ResponseEntity<byte[]> verPDF(@RequestParam(name = "id") Long id,
+			@RequestParam(name = "tarea") String tarea) {
+		byte[] contenidoPDF = null;
+		Contenido contenido = contenidoServicio.cargarContenidoById(id);
+		if (contenido != null) {
+			if (tarea.equalsIgnoreCase("DOC_I")) {
+				contenidoPDF = contenido.getArchivo1Pdf();
+			} else if (tarea.equalsIgnoreCase("DOC_II")) {
+				contenidoPDF = contenido.getArchivo2Pdf();
+			}
+			if (contenidoPDF != null) {
+				HttpHeaders headers = new HttpHeaders();
+				headers.setContentType(MediaType.APPLICATION_PDF);
+				headers.setContentDispositionFormData("attachment", "archivo.pdf");
+
+				return new ResponseEntity<>(contenidoPDF, headers, HttpStatus.OK);
+			}
+		}
+		//REVISAR NO SAE BIEN EL FORMATO
+		return null;
+	}
+
+	@GetMapping(value = "/ver-doc")
+	public ResponseEntity<byte[]> verDoc(@RequestParam(name = "id") Long id,
+			@RequestParam(name = "tarea") String tarea) {
+		byte[] contenidoDoc = null;
+		Contenido contenido = contenidoServicio.cargarContenidoById(id);
+		if (contenido != null) {
+			if (tarea.equalsIgnoreCase("TASK_I")) {
+				contenidoDoc = contenido.getArchivo1Doc();
+			} else if (tarea.equalsIgnoreCase("TASK_II")) {
+				contenidoDoc = contenido.getArchivo2Doc();
+			}
+			if (contenidoDoc != null) {
+				HttpHeaders headers = new HttpHeaders();
+				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+				headers.setContentDispositionFormData("attachment", "documento_word.docx");
+
+				return new ResponseEntity<>(contenidoDoc, headers, HttpStatus.OK);
+			}
+		}
+		return null;
+	}
+
 	public void formatearArchivos(Model model, byte[] imagen, byte[] video) {
 		if (imagen != null && video != null) {
 			String imagenDataURL = "data:image/png;base64," + Base64.getEncoder().encodeToString(imagen);
@@ -227,4 +281,5 @@ public class CursoControlador {
 			model.addAttribute(VIDEO_DATA_URL, videoDataURL);
 		}
 	}
+
 }

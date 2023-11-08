@@ -1,46 +1,85 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="htpp://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" th:href="@{/css/formAprendizaje.css}"/>
-        <title>Curso</title>
-    </head>
-    <body>
-        <div layout:fragment="content1">
-            <div class="col-md-8 offset-2 mt-3">
-                <div class="card-header">
-                    <span th:text="${contenido.getCurso.getCursoNombre()}"></span>
-                </div>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/formAprendizaje.css}" />
+    <title>Curso</title>
+</head>
+
+<body>
+    <div layout:fragment="content1">
+        <div class="col-md-8 offset-2 mt-3">
+            <div class="card-header">
+                <span th:text="${contenido.getCurso.getCursoNombre()}"></span>
             </div>
-            <div class="col-md-8 offset-2 mt-3">
-                <div class="card-body">
-                    <div>
-                        <label>
-                            <i class="fa fa-arrow-right"></i>
-                            Guia del estudiante
-                            <input type="checkbox" id="guia">
-                        </label>
-                        <section>
-                            <div class="image-container">
-                                <img th:src="${imagenDataURL}" width="300px">
-                            </div>
-                        </section>
-                    </div>
-                    <div>
-                        <label>
-                            <i class="fa fa-arrow-right"></i>
-                            Video tutorial
-                            <input type="checkbox" id="tutorial">
-                        </label>
-                        <section>
-                            <div class="video-container">
-                                <video th:src="${videoDataURL}" width="400" height="300" controls></video>
-                            </div>
-                        </section>
-                    </div>
+        </div>
+        <div class="col-md-8 offset-2 mt-3">
+            <div class="card-body">
+                <div>
+                    <label>
+                        <i class="fa fa-arrow-right"></i>
+                        Guia del estudiante
+                        <input type="checkbox" id="guia">
+                    </label>
+                    <section>
+                        <div class="image-container">
+                            <img th:src="${imagenDataURL}" width="300px">
+                        </div>
+                    </section>
+                </div>
+                <div>
+                    <label>
+                        <i class="fa fa-arrow-right"></i>
+                        Video tutorial
+                        <input type="checkbox" id="tutorial">
+                    </label>
+                    <section>
+                        <div class="video-container">
+                            <video th:src="${videoDataURL}" width="400" height="300" controls></video>
+                        </div>
+                    </section>
+                </div>
+                <div>
+                    <section>
+                        <ul class="archivos">
+                            <li class="seccion-documentos">
+                                <h5>Documento de apoyo</h5>
+                                <a class="btn btn-success custom-btn"
+                                    th:href="@{/cursos/ver-pdf(id=${contenido.getArchivoId()},tarea=${'DOC_I'})}"><i
+                                        class="fa fa-file-pdf" style="color: red;"></i> Doc I
+                                </a>
+                                <input type="checkbox">
+                            </li>
+                            <li class="seccion-documentos">
+                                <a class="btn btn-success custom-btn"
+                                    th:href="@{/cursos/ver-pdf(id=${contenido.getArchivoId()},tarea=${'DOC_II'})}"><i
+                                        class="fa fa-file-pdf" style="color: red;"></i> Doc II
+                                </a>
+                                <input type="checkbox">
+                            </li>
+                            <li class="seccion-documentos">
+                                <h5>Tareas</h5>
+                                <a class="btn btn-success custom-btn"
+                                    th:href="@{/cursos/ver-doc(id=${contenido.getArchivoId()},tarea=${'TASK_I'})}"><i
+                                        class="fa fa-book" style="color:blue"></i> TASK I
+                                </a>
+                                <input type="checkbox">
+                            </li>
+                            <li class="seccion-documentos">
+                                <a class="btn btn-success custom-btn"
+                                    th:href="@{/cursos/ver-doc(id=${contenido.getArchivoId()},tarea=${'TASK_II'})}"><i
+                                        class="fa fa-book" style="color:blue"></i> TASK II
+                                </a>
+                                <input type="checkbox">
+                            </li>
+                        </ul>
+                    </section>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>

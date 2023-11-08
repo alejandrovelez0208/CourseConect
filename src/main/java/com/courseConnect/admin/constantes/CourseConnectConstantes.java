@@ -22,4 +22,5 @@ public final class CourseConnectConstantes {
 	public static final String HAS_AUTHORITY_INSTRUCTOR = "hasAuthorityInstructor";
 	public static final String IMG_DATA_URL = "imagenDataURL";
 	public static final String VIDEO_DATA_URL = "videoDataURL";
+	public static final String DOCUMENTO_DATA_PDF = "documentoDataPdf";
 }

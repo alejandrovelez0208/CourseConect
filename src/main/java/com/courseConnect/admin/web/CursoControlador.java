@@ -1,5 +1,18 @@
 package com.courseConnect.admin.web;
 
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.APELLIDO;
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.CONTENIDO;
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.CURSO;
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.IMG_DATA_URL;
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.INSTRUCTOR;
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.INSTRUCTOR_ACTUAL;
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.KEYWORD;
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.LIST_CURSOS;
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.LIST_INSTRUCTORS;
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.NOMBRE;
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.OTROS_CURSOS;
+import static com.courseConnect.admin.constantes.CourseConnectConstantes.VIDEO_DATA_URL;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
@@ -8,12 +21,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.http.HttpEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.apache.tomcat.util.file.ConfigurationSource.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +32,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,13 +47,9 @@ import com.courseConnect.admin.servicio.CursoServicio;
 import com.courseConnect.admin.servicio.InstructorServicio;
 import com.courseConnect.admin.servicio.UsuarioServicio;
 
-import static com.courseConnect.admin.constantes.CourseConnectConstantes.*;
-
 @Controller
 @RequestMapping(value = "/cursos")
 public class CursoControlador {
-
-	private static final int ResponseEntity = 0;
 
 	private CursoServicio cursoServicio;
 
@@ -242,11 +247,12 @@ public class CursoControlador {
 				HttpHeaders headers = new HttpHeaders();
 				headers.setContentType(MediaType.APPLICATION_PDF);
 				headers.setContentDispositionFormData("attachment", "archivo.pdf");
+				headers.setContentLength(contenidoPDF.length);
 
 				return new ResponseEntity<>(contenidoPDF, headers, HttpStatus.OK);
 			}
 		}
-		//REVISAR NO SAE BIEN EL FORMATO
+		// REVISAR NO SAE BIEN EL FORMATO
 		return null;
 	}
 

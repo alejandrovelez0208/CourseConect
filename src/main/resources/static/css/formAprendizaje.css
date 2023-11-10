@@ -1,10 +1,11 @@
-* {
-	margin: 0;
-	padding: 0;
+body {
+	background-color: #fcfcfc; 
+	color: #131010; 
 }
 
 .card-header {
-	border: 1px solid gray;
+	background-color: #292929;
+	color: #ffffff;
 	padding: 10px;
 	margin: 10px;
 	font-family: monospace;
@@ -12,7 +13,8 @@
 }
 
 .card-body {
-	border: 1px solid gray;
+	background-color: #1e1e1e;
+	color: #ffffff;
 	padding: 10px;
 	margin: 10px;
 	font-family: monospace;
@@ -20,6 +22,7 @@
 
 label {
 	display: block;
+	color: #ffffff;
 }
 
 label input[type="checkbox"] {
@@ -27,45 +30,49 @@ label input[type="checkbox"] {
 	margin-left: 10px;
 }
 
-.image-container {
+.image-container, .video-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background-color: #333;
+	padding: 10px;
+	margin-top: 10px;
+	border-radius: 5px;
 }
 
-.video-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.video-container {
-	margin-bottom: 2rem;
-}
-
-a {
-	text-decoration: none;
-	color: black;
-}
-
-.archivos .seccion-documentos {
-	border-top: 1px solid #dee2e6;
+.archivos {
 	list-style: none;
+	padding: 0;
+}
+
+.seccion-documentos {
+	border-top: 1px solid #dee2e6;
+	background-color: #1e1e1e;
+	padding: 10px;
+	margin-top: 10px;
 	padding-bottom: 1rem;
 	padding-top: 3px;
+	border-radius: 5px;
 }
+
+h5 {
+	color: #ffffff;
+}
+
 .custom-btn {
-    background: none;
-    border: none;
-    color: inherit;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    text-decoration: none;
+	background-color: transparent;
+	color: #ffffff;
+	transition: background-color 0.3s, color 0.3s;
+	border: none;
+	cursor: pointer;
+	padding: 10px 20px;
+	border-radius: 5px;
+	width: 95%;
+	text-align: left;
 }
 
 .custom-btn:hover {
-    background: none;
-    border: none; 
-    color: inherit; 
+	background-color: #ffffff; 
+	color: #000000; 
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
 }
